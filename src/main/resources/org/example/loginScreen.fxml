@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../../ECMS.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LoginScreen">
    <children>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #d21e1e;">
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" styleClass="leftSide">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -33,7 +33,7 @@
                </font>
             </Label>
          </children></VBox>
-      <Pane layoutX="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #FFF;">
+      <Pane layoutX="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" styleClass="rightSide">
          <children>
             <ImageView fitHeight="75.0" fitWidth="100.0" layoutX="38.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -50,7 +50,7 @@
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="55.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Email">
+            <TextField layoutX="55.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Username">
                <font>
                   <Font size="14.0" />
                </font>
@@ -60,12 +60,12 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Label layoutX="53.0" layoutY="568.0" prefHeight="18.0" prefWidth="169.0" text="Return to main menu" textFill="#d14f4f">
+            <Label fx:id="returnButton" layoutX="53.0" layoutY="568.0" onMouseClicked="#returnMainMenu" prefHeight="18.0" prefWidth="143.0" styleClass="returnButton" text="Return to main menu" textFill="#d14f4f">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </Label>
-            <Button layoutX="55.0" layoutY="346.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.75" prefHeight="50.0" prefWidth="300.0" text="Login">
+            <Button fx:id="loginButton" layoutX="55.0" layoutY="346.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loginBtnAction" prefHeight="50.0" prefWidth="300.0" styleClass="loginButton" text="Login">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
