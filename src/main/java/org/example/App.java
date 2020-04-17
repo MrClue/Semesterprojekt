@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -23,6 +24,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("mainMenu"));
         //scene.getStylesheets().add("ECMS.css");
+        stage.initStyle(StageStyle.UNDECORATED); //removes default top panel of application
         stage.setScene(scene);
         stage.show();
     }
