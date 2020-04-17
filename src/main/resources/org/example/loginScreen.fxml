@@ -31,36 +31,41 @@
          </children></VBox>
       <Pane layoutX="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #FFF;">
          <children>
-            <ImageView fitHeight="75.0" fitWidth="100.0" layoutX="32.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="75.0" fitWidth="100.0" layoutX="38.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../menuPhotos/TV2_logo.png" />
                </image>
             </ImageView>
-            <Label layoutX="39.0" layoutY="70.0" text="Welcome Back," textFill="#d21e1e">
+            <Label layoutX="53.0" layoutY="70.0" text="Welcome Back," textFill="#d21e1e">
                <font>
                   <Font name="Impact" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="39.0" layoutY="99.0" text="Sign in to continue" textFill="#d14f4f">
+            <Label layoutX="53.0" layoutY="99.0" text="Sign in to continue" textFill="#d14f4f">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="50.0" layoutY="256.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Email">
+            <TextField layoutX="55.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Email">
                <font>
                   <Font size="14.0" />
                </font>
             </TextField>
-            <TextField layoutX="50.0" layoutY="304.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Password">
+            <TextField layoutX="55.0" layoutY="298.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Password">
                <font>
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Label layoutX="39.0" layoutY="568.0" prefHeight="18.0" prefWidth="169.0" text="&lt;- Return to main menu" textFill="#d14f4f">
+            <Label layoutX="53.0" layoutY="568.0" prefHeight="18.0" prefWidth="169.0" text="Return to main menu" textFill="#d14f4f">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </Label>
+            <Button layoutX="55.0" layoutY="346.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.75" prefHeight="50.0" prefWidth="300.0" text="Login">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </children>
