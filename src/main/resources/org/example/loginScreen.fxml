@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -17,15 +18,18 @@
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
+               <effect>
+                  <ColorAdjust brightness="1.0" />
+               </effect>
             </ImageView>
-            <Label text="Welcome To">
+            <Label text="Welcome To" textFill="WHITE">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="169.0" layoutY="347.0" text="ECMS">
+            <Label layoutX="169.0" layoutY="347.0" text="ECMS" textFill="WHITE">
                <font>
-                  <Font name="Impact" size="22.0" />
+                  <Font name="Impact" size="24.0" />
                </font>
             </Label>
          </children></VBox>
