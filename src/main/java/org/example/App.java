@@ -13,6 +13,7 @@ import java.io.IOException;
  * Author: Armin, Daniel, Sebastian, Villy & Yusaf.
  * Hejsa med jer venner
  * Virker det her lort nu? - Armin
+ * V for sejr
  */
 public class App extends Application {
 
