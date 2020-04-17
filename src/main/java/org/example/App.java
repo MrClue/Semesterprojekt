@@ -10,6 +10,7 @@ import java.io.IOException;
 
 /**
  * JavaFX App
+ * Author: Armin, Daniel, Sebastian, Villy & Yusaf.
  */
 public class App extends Application {
 
