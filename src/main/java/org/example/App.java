@@ -11,6 +11,7 @@ import java.io.IOException;
 /**
  * JavaFX App
  * Author: Armin, Daniel, Sebastian, Villy & Yusaf.
+ * MADE BY ME
  */
 public class App extends Application {
 
@@ -18,7 +19,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"));
+        scene = new Scene(loadFXML("mainMenu"));
         stage.setScene(scene);
         stage.show();
     }
