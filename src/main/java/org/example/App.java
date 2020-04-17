@@ -22,6 +22,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("mainMenu"));
+        //scene.getStylesheets().add("ECMS.css");
         stage.setScene(scene);
         stage.show();
     }
