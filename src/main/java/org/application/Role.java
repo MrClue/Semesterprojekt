@@ -1,4 +1,4 @@
-package org.example;
+package org.application;
 
 public class Role {
     private String username = null;
