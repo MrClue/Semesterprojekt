@@ -4,10 +4,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.application.Role;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import org.application.LoginSystem;
 
 /**
  * Video brugt til FXML inspiration:
@@ -20,8 +25,20 @@ public class LoginScreen {
     public Button closeButton;
 
     @FXML
+    private TextField usernameTextArea;
+
+    @FXML
+    private TextField passwordTextArea;
+
+    @FXML
     public void loginBtnAction(ActionEvent actionEvent) throws IOException {
-        App.setRoot("mainMenu");
+        LoginSystem ls = new LoginSystem();
+        String username = usernameTextArea.getText();
+        String password = passwordTextArea.getText();
+        if (ls.login(username, password)){
+            App.setRoot("mainMenu");
+        }
+
     }
 
     @FXML
@@ -33,4 +50,6 @@ public class LoginScreen {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
+
+
 }
