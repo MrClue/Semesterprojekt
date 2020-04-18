@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../../ECMS.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LoginScreen">
+<AnchorPane fx:id="menuPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../../ECMS.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LoginScreen">
    <children>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" styleClass="leftSide">
          <children>
@@ -35,17 +35,17 @@
          </children></VBox>
       <Pane layoutX="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" styleClass="rightSide">
          <children>
-            <ImageView fitHeight="75.0" fitWidth="100.0" layoutX="38.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="75.0" fitWidth="100.0" layoutX="34.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../menuPhotos/TV2_logo.png" />
                </image>
             </ImageView>
-            <Label layoutX="53.0" layoutY="70.0" text="Welcome Back," textFill="#d21e1e">
+            <Label layoutX="49.0" layoutY="81.0" text="Welcome Back," textFill="#d21e1e">
                <font>
                   <Font name="Impact" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="53.0" layoutY="99.0" text="Sign in to continue" textFill="#d14f4f">
+            <Label layoutX="49.0" layoutY="110.0" text="Sign in to continue" textFill="#d14f4f">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -60,7 +60,7 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Label fx:id="returnButton" layoutX="53.0" layoutY="568.0" onMouseClicked="#returnMainMenu" prefHeight="18.0" prefWidth="143.0" styleClass="returnButton" text="Return to main menu" textFill="#d14f4f">
+            <Label fx:id="returnButton" layoutX="49.0" layoutY="565.0" onMouseClicked="#returnMainMenu" prefHeight="18.0" prefWidth="143.0" styleClass="returnButton" text="Return to main menu" textFill="#d14f4f">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -70,7 +70,15 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
+            <Button fx:id="closeButton" layoutX="375.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="20.0" prefWidth="25.0" styleClass="closeButton" text="X">
+               <font>
+                  <Font name="Eras Bold ITC" size="12.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 </AnchorPane>
