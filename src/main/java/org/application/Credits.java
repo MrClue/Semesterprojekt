@@ -1,6 +1,8 @@
 package org.application;
 
-public class Credits {
+import java.io.Serializable;
+
+public class Credits implements Serializable {
     private String title;
     private String occupation;
     private String person;

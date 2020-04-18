@@ -1,20 +1,26 @@
 package org.application;
 
-public class Program {
+import java.io.Serializable;
+
+public class Program implements Serializable {
     private String title;
     private String description;
     private int ext_ID;
-    //private Kreditering credit;
+    private Credits credit;
 
-    public Program(String title, String description, int ext_ID/*, Kreditering credit*/) {
+    public Program(String title, String description, int ext_ID, Credits credit) {
         this.title = title;
         this.description = description;
         this.ext_ID = ext_ID;
-        //this.credit = credit
+        this.credit = credit;
     }
 
-    public void addCredit(/* kreditering credit*/) {
-        //this.credit = credit
+    public String getTitle() {
+        return title;
+    }
+
+    public void addCredit(Credits credit) {
+        this.credit = credit;
     }
 
     public boolean findCredit(/*Kreditering*/) {
