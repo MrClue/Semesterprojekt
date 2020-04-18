@@ -20,6 +20,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    public static HelpPopUp HelpPopUp;
 
     private double xOffset = 0;
     private double yOffset = 0;
@@ -29,6 +30,8 @@ public class App extends Application {
         scene = new Scene(loadFXML("mainMenu"));
         //scene.getStylesheets().add("ECMS.css");
         stage.initStyle(StageStyle.UNDECORATED); //removes default top panel of application
+
+        HelpPopUp = new HelpPopUp();
         /**
          * Making the scene drag-able:
          * #1 We must calculate the mouse pressed location.
@@ -103,5 +106,4 @@ public class App extends Application {
         }
 
     }
-
-}
+    }

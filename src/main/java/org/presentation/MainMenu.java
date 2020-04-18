@@ -21,5 +21,6 @@ public class MainMenu {
     }
 
     public void switchToHelpPopup(ActionEvent actionEvent) {
+        App.HelpPopUp.display();
     }
 }
