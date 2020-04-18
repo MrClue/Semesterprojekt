@@ -75,6 +75,16 @@
                   <Font name="Eras Bold ITC" size="12.0" />
                </font>
             </Button>
+            <Label fx:id="helpButton" layoutX="276.0" layoutY="402.0" prefHeight="18.0" prefWidth="75.0" styleClass="returnButton" text="Need help?" textFill="#d14f4f">
+               <font>
+                  <Font name="Ebrima Bold" size="13.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="rememberMeButton" layoutX="55.0" layoutY="403.0" mnemonicParsing="false" styleClass="rememberMeButton" text="Remember me">
+               <font>
+                  <Font name="Ebrima Bold" size="13.0" />
+               </font>
+            </RadioButton>
          </children>
       </Pane>
    </children>
