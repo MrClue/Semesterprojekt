@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -18,6 +19,7 @@ import java.io.IOException;
 public class LoginScreen {
     public Label returnButton;
     public Button loginButton;
+    public Button closeButton;
 
     @FXML
     public void loginBtnAction(ActionEvent actionEvent) throws IOException {
@@ -27,5 +29,10 @@ public class LoginScreen {
     @FXML
     public void returnMainMenu(MouseEvent actionEvent) throws IOException {
         App.setRoot("mainMenu");
+    }
+
+    public void closeButtonAction(ActionEvent actionEvent) {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 }
