@@ -1,4 +1,4 @@
-package org.example;
+package org.presentation;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
