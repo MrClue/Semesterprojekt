@@ -4,14 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import org.application.Role;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.application.LoginSystem;
 
 /**
@@ -23,6 +22,8 @@ public class LoginScreen {
     public Label returnButton;
     public Button loginButton;
     public Button closeButton;
+    public Label helpButton;
+    public RadioButton rememberMeButton;
 
     @FXML
     private TextField usernameTextArea;
@@ -51,5 +52,7 @@ public class LoginScreen {
         stage.close();
     }
 
-
+    public void switchToHelpPopup(MouseEvent actionEvent) {
+        App.HelpPopUp.display();
+    }
 }
