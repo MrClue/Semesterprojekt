@@ -3,9 +3,14 @@ package org.presentation;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.IOException;
@@ -18,6 +23,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    public static HelpPopUp HelpPopUp;
 
     private double xOffset = 0;
     private double yOffset = 0;
@@ -27,6 +33,8 @@ public class App extends Application {
         scene = new Scene(loadFXML("mainMenu"));
         //scene.getStylesheets().add("ECMS.css");
         stage.initStyle(StageStyle.UNDECORATED); //removes default top panel of application
+
+        HelpPopUp = new HelpPopUp();
         /**
          * Making the scene drag-able:
          * #1 We must calculate the mouse pressed location.
@@ -72,5 +80,4 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
     }
-
-}
+    }
