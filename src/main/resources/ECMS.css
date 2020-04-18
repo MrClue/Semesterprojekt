@@ -1,7 +1,3 @@
-/*.root {
-
-}*/
-
 
 .leftSide {
     -fx-background-color: #D21E1E;
@@ -31,4 +27,15 @@
 }
 .returnButton:hover {
     -fx-text-fill: #D21E1E;
+}
+
+.closeButton {
+    -fx-background-color: transparent;
+    -fx-background-radius: 4px;
+    -fx-text-fill: #D14F4F;
+}
+.closeButton:hover {
+    -fx-background-color: #D14F4F;
+    -fx-background-radius: 4px;
+    -fx-text-fill: #FFFFFF;
 }

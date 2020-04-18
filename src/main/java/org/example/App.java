@@ -1,23 +1,24 @@
 package org.example;
 
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.IOException;
 
 /**
- * JavaFX App
+ * Project: JavaFX Application
  * Author: Armin, Daniel, Sebastian, Villy & Yusaf.
- * Hejsa med jer venner
- * Virker det her lort nu? - Armin
- * V for sejr
  */
+
 public class App extends Application {
 
     private static Scene scene;
@@ -27,15 +28,14 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("mainMenu"));
+        scene = new Scene(loadFXML("loginScreen"));
         //scene.getStylesheets().add("ECMS.css");
         stage.initStyle(StageStyle.UNDECORATED); //removes default top panel of application
-
         /**
-         * making the scene drag-able
+         * Making the scene drag-able:
          * #1 We must calculate the mouse pressed location.
          * #2 We use this location to calculate the mouse dragging location.
-         * */
+         **/
         scene.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -49,6 +49,14 @@ public class App extends Application {
             public void handle(MouseEvent mouseEvent) {
                 stage.setX(mouseEvent.getScreenX() - xOffset);
                 stage.setY(mouseEvent.getScreenY() - yOffset);
+                stage.setOpacity(0.85f); // making it look nice :)
+            }
+        });
+        // restoring opacity on mouse release
+        scene.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                stage.setOpacity(1.0f);
             }
         });
 
