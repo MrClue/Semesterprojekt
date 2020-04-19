@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="rightSide" stylesheets="@../../ECMS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.presentation.MainMenu">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="rightSide" stylesheets="@../../ECMS.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.presentation.MainMenu">
    <children>
       <Button fx:id="loginButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToLoginScreen" styleClass="loginButton" text="Login" />
       <TextField fx:id="searchField" layoutX="14.0" layoutY="108.0" onKeyPressed="#searchField" prefHeight="30.0" prefWidth="300.0" promptText="Name" />
@@ -24,23 +19,32 @@
          <font>
             <Font name="Eras Bold ITC" size="12.0" />
          </font></Button>
-      <Button fx:id="addButton" layoutX="363.0" layoutY="93.0" mnemonicParsing="false" onAction="#addButton" prefHeight="31.0" prefWidth="100.0" styleClass="loginButton" text="Add" />
-      <Button fx:id="deleteButton" layoutX="504.0" layoutY="93.0" mnemonicParsing="false" onAction="#deleteButton" prefHeight="31.0" prefWidth="100.0" styleClass="loginButton" text="Delete" />
-      <Button fx:id="updateButton" layoutX="652.0" layoutY="93.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="31.0" prefWidth="100.0" styleClass="loginButton" text="Update" />
-      <TableView fx:id="creditTable" editable="true" layoutX="332.0" layoutY="143.0" prefHeight="450.0" prefWidth="450.0">
+      <Button fx:id="addButton" layoutX="332.0" layoutY="562.0" mnemonicParsing="false" onAction="#addButton" prefHeight="30.0" prefWidth="148.0" styleClass="loginButton" text="Add">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="deleteButton" layoutX="483.0" layoutY="562.0" mnemonicParsing="false" onAction="#deleteButton" prefHeight="30.0" prefWidth="148.0" styleClass="loginButton" text="Delete" >
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="updateButton" layoutX="634.0" layoutY="562.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="30.0" prefWidth="148.0" styleClass="loginButton" text="Update" >
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <TableView fx:id="creditTable" editable="true" layoutX="332.0" layoutY="143.0" prefHeight="415.0" prefWidth="450.0">
         <columns>
-          <TableColumn fx:id="title" prefWidth="147.0" text="Title" />
-          <TableColumn fx:id="occupation" minWidth="0.0" prefWidth="132.0" text="Occupation" />
-            <TableColumn fx:id="person" minWidth="-1.0" prefWidth="170.0" text="Person" />
+          <TableColumn fx:id="title" prefWidth="150.0" text="Title" />
+          <TableColumn fx:id="occupation" minWidth="0.0" prefWidth="150.0" text="Occupation" />
+            <TableColumn fx:id="person" minWidth="-1.0" prefWidth="150.0" text="Person" />
         </columns>
       </TableView>
-      <TextField fx:id="setPersonBox" layoutX="634.0" layoutY="54.0" prefHeight="30.0" prefWidth="136.0" promptText="Person" />
-      <Label layoutX="500.0" layoutY="30.0" prefHeight="18.0" prefWidth="114.0" text="Add production:">
+      <TextField fx:id="setPersonBox" layoutX="632.0" layoutY="108.0" prefHeight="30.0" prefWidth="150.0" promptText="Person" />
+      <Label layoutX="332.0" layoutY="86.0" prefHeight="18.0" prefWidth="114.0" text="Add credits:">
          <font>
             <Font name="Ebrima Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="setOccupationBox" layoutX="489.0" layoutY="54.0" prefHeight="30.0" prefWidth="136.0" promptText="Occupation" />
-      <TextField fx:id="setTitleBox" layoutX="345.0" layoutY="54.0" prefHeight="30.0" prefWidth="136.0" promptText="Title" />
+      <TextField fx:id="setOccupationBox" layoutX="482.0" layoutY="108.0" prefHeight="30.0" prefWidth="150.0" promptText="Occupation" />
+      <TextField fx:id="setTitleBox" layoutX="332.0" layoutY="108.0" prefHeight="30.0" prefWidth="150.0" promptText="Title" />
    </children>
 </AnchorPane>

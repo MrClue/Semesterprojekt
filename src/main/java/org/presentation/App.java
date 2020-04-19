@@ -76,34 +76,34 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
-        Controller c1 = new Controller();
-        try {
-            c1.createProgram("badehotel", "Hoteler der bader", 1, "Badehotel", "Lydman", "Bob Bobbyson");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            c1.testToSeeIfTextfileWorks();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            c1.createProgram("The bade hotel", "Hoteler der bader", 1, "Badehotel", "Lydman", "Bob Bobbyson");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            c1.testToSeeIfTextfileWorks();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+//        Controller c1 = new Controller();
+//        try {
+//            c1.createProgram("badehotel", "Hoteler der bader", 1, "Badehotel", "Lydman", "Bob Bobbyson");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            c1.testToSeeIfTextfileWorks();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            c1.createProgram("The bade hotel", "Hoteler der bader", 1, "Badehotel", "Lydman", "Bob Bobbyson");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            c1.testToSeeIfTextfileWorks();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
 
     }
     }
