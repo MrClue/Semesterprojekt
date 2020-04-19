@@ -17,6 +17,8 @@ public class Credits {
         this.occupation = new SimpleStringProperty(occupation);
         this.person = new SimpleStringProperty(person);
         currentTitles.add(title);
+        currentTitles.add(occupation);
+        currentTitles.add(person);
     }
 
     public String getTitle() {
@@ -55,4 +57,11 @@ public class Credits {
         return currentTitles.contains(title);
     }
 
+    public static boolean checkDuplicateEntry(String title, String occupation, String name) {
+        boolean check = false;
+        if (currentTitles.contains(title) && currentTitles.contains(occupation) && currentTitles.contains(name)){
+            check = true;
+        }
+        return check;
+    }
 }

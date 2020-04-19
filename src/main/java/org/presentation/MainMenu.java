@@ -26,10 +26,10 @@ public class MainMenu implements Serializable {
     public TextField setTitleBox;
     public TextField setOccupationBox;
     public TextField setPersonBox;
-    public TableView creditTable;
-    public TableColumn title;
-    public TableColumn occupation;
-    public TableColumn person;
+    public TableView<Credits> creditTable;
+    public TableColumn<Credits, String> title;
+    public TableColumn<Credits, String> occupation;
+    public TableColumn<Credits, String> person;
     public ListView test;
 
     final ObservableList<Credits> credits = FXCollections.observableArrayList();
@@ -43,18 +43,16 @@ public class MainMenu implements Serializable {
     public void addButton(ActionEvent event) {
         if (setTitleBox.getText().trim().isEmpty() || setOccupationBox.getText().trim().isEmpty() || setPersonBox.getText().trim().isEmpty()) {
             System.out.println("1 or more textBoxes are empty!");
-            return;
         } else {
             String title = setTitleBox.getText();
             String occupation = setOccupationBox.getText();
             String person = setPersonBox.getText();
-            if (!Credits.checkTitleExist(title)) {
+            if (!Credits.checkDuplicateEntry(title, occupation, person)) {
                 credits.add(new Credits(title, occupation, person));
                 creditTable.setItems(credits);
                 clearText();
             } else {
                 System.out.println("Credit already exists");
-                return;
             }
         }
     }
@@ -68,7 +66,6 @@ public class MainMenu implements Serializable {
     public void updateButton(ActionEvent event) {
         if (setTitleBox.getText().trim().isEmpty() || setOccupationBox.getText().trim().isEmpty() || setPersonBox.getText().trim().isEmpty()) {
             System.out.println("1 or more textBoxes are empty!");
-            return;
         } else {
             Credits.removeTitle(getCurrentlySelectedTitle());
             String updatedTitle = setTitleBox.getText();
@@ -95,9 +92,11 @@ public class MainMenu implements Serializable {
 
                 if (credits.getTitle().toLowerCase().indexOf(Filter) != -1) {
                     return true;
-                } else if (credits.getOccupation().toLowerCase().indexOf(Filter) != -1) {
+                }
+                 /** føler at det er useless at lave en generel søgning efter occupation */
+                /*else if (credits.getOccupation().toLowerCase().indexOf(Filter) != -1) {
                     return true;
-                } else if (credits.getPerson().toLowerCase().indexOf(Filter) != -1) {
+                }*/ else if (credits.getPerson().toLowerCase().indexOf(Filter) != -1) {
                     return true;
                 } else {
                     return false;
@@ -111,7 +110,7 @@ public class MainMenu implements Serializable {
 
     public String getCurrentlySelectedTitle() {
         int index = creditTable.getSelectionModel().getSelectedIndex();
-        Credits credit = (Credits)creditTable.getItems().get(index);
+        Credits credit = creditTable.getItems().get(index);
         return credit.getTitle();
     }
 

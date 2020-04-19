@@ -35,8 +35,8 @@ public class Role {
         return this.authorityLevel;
     }
 
-    public void setAuthLvl(int niveau) {
-        this.authorityLevel = niveau;
+    public void setAuthLvl(int authLevel) {
+        this.authorityLevel = authLevel;
     }
 
     public int getID() {
