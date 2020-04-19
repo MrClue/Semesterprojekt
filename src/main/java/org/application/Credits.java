@@ -1,21 +1,58 @@
 package org.application;
 
-import java.io.Serializable;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
-public class Credits implements Serializable {
-    private String title;
-    private String occupation;
-    private String person;
+import java.util.ArrayList;
 
-    public Credits (String t, String o, String p){
-        this.title = t;
-        this.occupation = o;
-        this.person = p;
+public class Credits {
+    private SimpleStringProperty title;
+    private SimpleStringProperty occupation;
+    private SimpleStringProperty person;
+
+    public static ArrayList<String> currentTitles = new ArrayList<>();
+
+    public Credits (String title, String occupation, String person){
+        this.title = new SimpleStringProperty(title);
+        this.occupation = new SimpleStringProperty(occupation);
+        this.person = new SimpleStringProperty(person);
+        currentTitles.add(title);
     }
 
-    public Boolean checkExistance() {
-        boolean exist = false;
-        //if it exists, then "exist" = true;
-        return exist;
+    public String getTitle() {
+        return this.title.get();
     }
+
+    public void setTitle(String title) {
+        this.title.set(title);
+    }
+
+    public String getOccupation() {
+        return this.occupation.get();
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation.set(occupation);
+    }
+
+    public String getPerson() {
+        return this.person.get();
+    }
+
+    public void setPerson(String name) {
+        this.person.set(name);
+    }
+
+    public static void addTitle(String title) {
+        currentTitles.add(title);
+    }
+
+    public static void removeTitle(String title) {
+        currentTitles.remove(title);
+    }
+
+    public static boolean checkTitleExist(String title) {
+        return currentTitles.contains(title);
+    }
+
 }
