@@ -19,7 +19,7 @@ import org.application.LoginSystem;
  * */
 
 public class LoginScreen {
-    public Label returnButton;
+    public Label noLoginButton;
     public Button loginButton;
     public Button closeButton;
     public Label helpButton;
@@ -43,8 +43,8 @@ public class LoginScreen {
     }
 
     @FXML
-    public void returnMainMenu(MouseEvent actionEvent) throws IOException {
-        App.setRoot("mainMenu");
+    public void returnUserMainMenu(MouseEvent actionEvent) throws IOException {
+        App.setRoot("user_mainMenu");
     }
 
     public void closeButtonAction(ActionEvent actionEvent) {
