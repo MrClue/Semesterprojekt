@@ -17,13 +17,15 @@ public class HelpPopUp {
         popupwindow.setTitle("ECMS - Help");
 
 
-        Label label1= new Label("ECMS is a tool to help you find credits for TV2 productions.\n"
+        Label label1= new Label(
+                "ECMS is a tool to help you find credits for TV2 productions.\n"
                 + "To find a production, simply type your searchword into the\n"
                 + "searchfield and click search.\n"
                 + "From the list, click a production to view the credits. \n"
                 + "\n"
                 + "\n"
-                + "Producers should log in to add, edit and delete productions.");
+                + "Producers should log in to add, edit and delete productions."
+        );
 
         VBox layout= new VBox(10);
         layout.getChildren().addAll(label1);

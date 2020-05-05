@@ -8,8 +8,9 @@ public class LoginSystem {
     List<Role> list = new ArrayList<>();
 
     public boolean login(String username, String password){
-        list.add(new Role("yusaf", "tyk", 1, 1));
-        list.add(new Role("villy", "tyk", 1, 1));
+        list.add(new Role("Admin", "admin", 1, 1)); // for demonstration purposes only
+        list.add(new Role("Yusaf", "tyk", 1, 1));
+        list.add(new Role("Villy", "kalb", 1, 1));
         boolean valid = false;
         for (int i = 0; i < list.size() ; i++) {
             if (list.get(i).getName().toLowerCase().compareTo(username.toLowerCase()) == 0 && list.get(i).getPassword().compareTo(password) == 0) {

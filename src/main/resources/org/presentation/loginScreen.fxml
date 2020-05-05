@@ -35,17 +35,17 @@
          </children></VBox>
       <Pane layoutX="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" styleClass="rightSide">
          <children>
-            <ImageView fitHeight="75.0" fitWidth="100.0" layoutX="34.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="75.0" fitWidth="100.0" layoutX="34.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../menuPhotos/TV2_logo.png" />
                </image>
             </ImageView>
-            <Label layoutX="49.0" layoutY="81.0" text="Welcome Back," textFill="#d21e1e">
+            <Label layoutX="49.0" layoutY="79.0" text="Welcome Back," textFill="#d21e1e">
                <font>
                   <Font name="Impact" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="49.0" layoutY="110.0" text="Sign in to continue" textFill="#d14f4f">
+            <Label layoutX="49.0" layoutY="108.0" text="Sign in to continue" textFill="#d14f4f">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -60,7 +60,7 @@
                   <Font size="14.0" />
                </font>
             </PasswordField>
-            <Label fx:id="returnButton" layoutX="49.0" layoutY="565.0" onMouseClicked="#returnMainMenu" prefHeight="18.0" prefWidth="143.0" styleClass="returnButton" text="Return to main menu" textFill="#d14f4f">
+            <Label fx:id="noLoginButton" layoutX="49.0" layoutY="565.0" onMouseClicked="#returnUserMainMenu" prefHeight="18.0" prefWidth="150.0" styleClass="returnButton" text="Proceed without login" textFill="#d14f4f">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>

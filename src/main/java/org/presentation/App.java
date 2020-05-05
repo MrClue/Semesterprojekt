@@ -1,16 +1,22 @@
 package org.presentation;
 
 import javafx.application.Application;
+import javafx.beans.InvalidationListener;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.application.Controller;
+import org.application.Program;
 
 import java.io.IOException;
+import java.util.*;
 
 /**
  * Project: JavaFX Application
@@ -76,34 +82,6 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
-//        Controller c1 = new Controller();
-//        try {
-//            c1.createProgram("badehotel", "Hoteler der bader", 1, "Badehotel", "Lydman", "Bob Bobbyson");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            c1.testToSeeIfTextfileWorks();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            c1.createProgram("The bade hotel", "Hoteler der bader", 1, "Badehotel", "Lydman", "Bob Bobbyson");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            c1.testToSeeIfTextfileWorks();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
+    }
 
-    }
-    }
+}
