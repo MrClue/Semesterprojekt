@@ -12,9 +12,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.application.Credits;
 import org.application.Program;
-
 import java.io.IOException;
 import java.io.Serializable;
+
+/**
+ * ToDO List:
+ * Make creditsTable only show relevant credits (those whose ID is similar to the selected production name).
+ * Make it possible to type Production title and Credit information at the same time.
+ * Make a search bar for the Credit table.
+ * Fix errors and optimize logic.
+ * */
 
 public class MainMenu implements Serializable {
     public Button signOut, closeButton, helpButton, addButton, deleteButton, updateButton;
@@ -29,7 +36,7 @@ public class MainMenu implements Serializable {
     // credits table
     public TableView<Credits> creditTable;
     public TableColumn<Credits, String> occupation, person;
-    final ObservableList<Credits> credits = FXCollections.observableArrayList();
+    final ObservableList<Credits> creditsList = FXCollections.observableArrayList();
 
     public void initialize() {
         productionTitle.setCellValueFactory(new PropertyValueFactory<Program, String>("title"));
@@ -56,16 +63,34 @@ public class MainMenu implements Serializable {
 
         // button ADD
         if (event.getSource() == addButton) {
-            if (titleDefined) {
+            if (titleDefined && !occupationDefined || titleDefined && !personDefined) {
                 if (!Program.checkDuplicateProduction(title)) {
                     productionsList.add(new Program(title));
                     productionTable.setItems(productionsList);
                     clearText();
                 } else {
-                    System.out.println("Production already exists");
+                    System.out.println("Production already exists OR a textfield is empty");
+                }
+            } /*else {
+                System.out.println("Title field is empty!");
+            }*/
+            // adding credits for the selected production
+            else if (/*getCurrentlySelectedProduction() != null*/selectedProduction != -1 && occupationDefined && personDefined){
+                if (!Credits.checkDuplicateCredit(getCurrentlySelectedProduction(), occupation, person)) {
+                    // replacing the old production object
+                    //Program.removeProduction(getCurrentlySelectedProduction());
+                    //productionsList.remove(selectedProduction);
+
+                    // adding the credits for the selected production
+                    creditsList.add(new Credits(getCurrentlySelectedProduction(), occupation, person));
+                    creditTable.setItems(creditsList);
+                    clearText();
+                } else {
+                    System.out.println("The credit for the production " + title + " already exists.");
+                    //System.out.println("ERROR: 1 or more text fields are empty!");
                 }
             } else {
-                System.out.println("Title field is empty!");
+                System.out.println("Something went wrong");
             }
         }
         // button DELETE
@@ -87,7 +112,7 @@ public class MainMenu implements Serializable {
         }
         // button UPDATE
         else if (event.getSource() == updateButton){
-            if (selectedProduction != -1){
+            if (selectedProduction != -1 && !titleField.getText().equals("")){
                 Program.removeProduction(getCurrentlySelectedProduction());
                 //productionsList.get(selectedProduction).setTitle(title); // tror ikke dette behøves
 
