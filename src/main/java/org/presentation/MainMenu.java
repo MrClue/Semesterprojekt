@@ -40,7 +40,7 @@ public class MainMenu implements Serializable {
     public TableColumn<Credits, String> occupation, person;
     final ObservableList<Credits> creditsList = FXCollections.observableArrayList();
 
-    DatabaseHandler databaseHandler = new DatabaseHandler();
+    private DatabaseHandler databaseHandler = DatabaseHandler.getInstance();
 
     public void initialize() {
         productionTitle.setCellValueFactory(new PropertyValueFactory<Program, String>("title"));

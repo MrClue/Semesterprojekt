@@ -20,7 +20,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     private String password = "password";
     private Connection connection = null;
 
-    public DatabaseHandler() {
+    private DatabaseHandler() {
         initializePostgresqlDatabase();
     }
 
