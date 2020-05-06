@@ -36,7 +36,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         databaseHandler = DatabaseHandler.getInstance();
-        databaseHandler.createUser();
+        //databaseHandler.createUser();
         scene = new Scene(loadFXML("loginScreen"));
         //scene.getStylesheets().add("ECMS.css");
         stage.initStyle(StageStyle.UNDECORATED); //removes default top panel of application
