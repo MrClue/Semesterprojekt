@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IDatabaseHandler {
     public List<Program> getPrograms();
-    public Program getProgram(int id);
+    public int getProgramID(String productionTitle);
     public boolean createProgram(Program program);
     public boolean updateProgram();
     public boolean deleteProgram();

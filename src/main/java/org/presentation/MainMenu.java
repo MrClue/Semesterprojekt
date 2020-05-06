@@ -12,6 +12,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.application.Credits;
 import org.application.Program;
+import org.data.DatabaseHandler;
+
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -37,6 +39,8 @@ public class MainMenu implements Serializable {
     public TableView<Credits> creditTable;
     public TableColumn<Credits, String> occupation, person;
     final ObservableList<Credits> creditsList = FXCollections.observableArrayList();
+
+    DatabaseHandler databaseHandler = new DatabaseHandler();
 
     public void initialize() {
         productionTitle.setCellValueFactory(new PropertyValueFactory<Program, String>("title"));
@@ -65,8 +69,15 @@ public class MainMenu implements Serializable {
         if (event.getSource() == addButton) {
             if (titleDefined && !occupationDefined || titleDefined && !personDefined) {
                 if (!Program.checkDuplicateProduction(title)) {
-                    productionsList.add(new Program(title));
-                    productionTable.setItems(productionsList);
+                    // we must insert a row to the program table
+                    
+                    // after table row has been inserted into database
+                    if (databaseHandler.getProgramID(title) > 0){
+                        productionsList.add(new Program(databaseHandler.getProgramID(title), title));
+                        productionTable.setItems(productionsList);
+                    } else {
+                        System.out.println("Production doesnt exist in Database");
+                    }
                     clearText();
                 } else {
                     System.out.println("Production already exists OR a textfield is empty");
@@ -111,40 +122,22 @@ public class MainMenu implements Serializable {
             }
         }
         // button UPDATE
-        else if (event.getSource() == updateButton){
+        /*else if (event.getSource() == updateButton){
             if (selectedProduction != -1 && !titleField.getText().equals("")){
                 Program.removeProduction(getCurrentlySelectedProduction());
                 //productionsList.get(selectedProduction).setTitle(title); // tror ikke dette behøves
 
                 String selectedItem = this.productionTable.getSelectionModel().getSelectedItem().toString();
-                Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item "+selectedItem+" has updated to "+titleField.getText());
+                Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item "+selectedItem+" has updated to "+title);
                 dialog.show();
                 productionsList.remove(selectedProduction);
-                productionsList.add(selectedProduction, new Program(titleField.getText()));
+                productionsList.add(selectedProduction, new Program(title));
                 clearText();
 
                 productionTable.refresh();
             }
-        }
+        }*/
     }
-
-//    public void updateButton(ActionEvent event) {
-//
-//        if (setTitleBox.getText().trim().isEmpty() || setOccupationBox.getText().trim().isEmpty() || setPersonBox.getText().trim().isEmpty()) {
-//            System.out.println("1 or more textBoxes are empty!");
-//        } else {
-//            Credits.removeTitle(getCurrentlySelectedCredit());
-//            String updatedTitle = setTitleBox.getText();
-//            String updatedOccupation = setOccupationBox.getText();
-//            String updatedPerson = setPersonBox.getText();
-//            Credits.addTitle(updatedTitle);
-//            credits.get(productionTable.getSelectionModel().getSelectedIndex()).setTitle(updatedTitle);
-//            credits.get(creditTable.getSelectionModel().getSelectedIndex()).setOccupation(updatedOccupation);
-//            credits.get(creditTable.getSelectionModel().getSelectedIndex()).setPerson(updatedPerson);
-//            System.out.println("Credit succesfully updated");
-//            creditTable.refresh();
-//        }
-//    }
 
     public void searchFieldProduction(KeyEvent event) {
         FilteredList<Program> filteredList = new FilteredList<>(productionsList, b -> true);
@@ -216,4 +209,5 @@ public class MainMenu implements Serializable {
             System.out.println("No production selected.");
         }
     }
+
 }
