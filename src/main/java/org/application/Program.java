@@ -22,6 +22,14 @@ public class Program implements Serializable {
         productionsList.add(title);
     }
 
+    public Program(int ID, String title, Credits credit) {
+        this.ext_ID = ID;
+        this.title = new SimpleStringProperty(title);
+        this.credit = credit;
+
+        productionsList.add(title);
+    }
+
     // temporary
     public Program(String title){
         this.title = new SimpleStringProperty(title);
