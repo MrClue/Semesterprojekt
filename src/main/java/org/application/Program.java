@@ -7,12 +7,12 @@ import java.util.ArrayList;
 public class Program implements Serializable {
     private SimpleStringProperty title;
     private String description;
-    private int ext_ID;
+    private int ID;
 
     public static ArrayList<String> productionsList = new ArrayList<>();
 
     public Program(int ID, String title, String description) {
-        this.ext_ID = ID;
+        this.ID = ID;
         this.title = new SimpleStringProperty(title);
         this.description = description;
 
@@ -20,7 +20,8 @@ public class Program implements Serializable {
     }
 
     // temporary
-    public Program(String title){
+    public Program(int ID, String title){
+        this.ID = ID;
         this.title = new SimpleStringProperty(title);
         productionsList.add(title);
     }

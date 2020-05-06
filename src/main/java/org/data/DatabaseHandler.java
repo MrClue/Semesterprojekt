@@ -20,7 +20,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     private String password = "password";
     private Connection connection = null;
 
-    private DatabaseHandler() {
+    public DatabaseHandler() {
         initializePostgresqlDatabase();
     }
 
@@ -60,8 +60,19 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     }
 
     @Override
-    public Program getProgram(int id) {
-        return null;
+    public int getProgramID(String productionTitle) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM programs WHERE programtitle = ?");
+            stmt.setString(1, productionTitle);
+
+            ResultSet sqlReturnValues = stmt.executeQuery();
+
+            return sqlReturnValues.getInt(1);
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+            return -1;
+        }
     }
 
     @Override
@@ -131,7 +142,5 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
             throwables.printStackTrace();
             return false;
         }
-    }
-
-     */
+    }*/
 }
