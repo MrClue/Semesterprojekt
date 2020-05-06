@@ -6,9 +6,9 @@ public class DatabaseHandler {
     private static DatabaseHandler instance;
     private String url = "";
     private int port = 5432;
-    private String databaseName = "database_test";
+    private String databaseName = "ecms";
     private String username = "postgres";
-    private String password = "hejhej123";
+    private String password = "password";
     private Connection connection = null;
 
     private DatabaseHandler() {

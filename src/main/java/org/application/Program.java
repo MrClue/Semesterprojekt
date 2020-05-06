@@ -1,8 +1,6 @@
 package org.application;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableArray;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 

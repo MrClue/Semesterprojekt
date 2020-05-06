@@ -16,7 +16,3 @@ CREATE TABLE Login (
   Password VARCHAR(50) NOT NULL
 );
 
-DROP TABLE Program;
-DROP TABLE Login;
-DROP TABLE Credit;
-

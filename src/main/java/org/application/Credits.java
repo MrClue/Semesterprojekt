@@ -5,7 +5,7 @@ import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 
-public class Credits {
+public class Credits extends Program {
     private SimpleStringProperty productionTitle;
     private SimpleStringProperty occupation;
     private SimpleStringProperty person;
@@ -13,6 +13,7 @@ public class Credits {
     public static ArrayList<String> creditsList = new ArrayList<>();
 
     public Credits (String ID, String occupation, String person){
+        super(ID);
         this.productionTitle = new SimpleStringProperty(ID); //test
         this.occupation = new SimpleStringProperty(occupation);
         this.person = new SimpleStringProperty(person);
