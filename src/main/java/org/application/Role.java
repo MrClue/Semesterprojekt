@@ -2,9 +2,20 @@ package org.application;
 
 public class Role {
     private String username = null;
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", authorityLevel=" + authorityLevel +
+                ", ID=" + ID +
+                '}';
+    }
+
     private String password = null;
-    private int authorityLevel = 0;
-    private int ID = 0;
+    private int authorityLevel;
+    private int ID ;
 
     public Role() {}
 
