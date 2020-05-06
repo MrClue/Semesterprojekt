@@ -12,9 +12,9 @@ public class DatabaseHandler implements IDatabaseHandler {
     private static DatabaseHandler instance;
     private String url = "";
     private int port = 5432;
-    private String databaseName = "ECMS";
+    private String databaseName = "ecms";
     private String username = "postgres";
-    private String password = "";
+    private String password = "password";
     private Connection connection = null;
 
     private DatabaseHandler() {
@@ -46,7 +46,7 @@ public class DatabaseHandler implements IDatabaseHandler {
             ResultSet sqlReturnValues = stmt.executeQuery();
             List<Program> returnValue = new ArrayList<>();
             while (sqlReturnValues.next()) {
-                returnValue.add(new Program(sqlReturnValues.getInt(1), sqlReturnValues.getString(2), sqlReturnValues.getCredit()));
+                //returnValue.add(new Program(sqlReturnValues.getInt(1), sqlReturnValues.getString(2), sqlReturnValues.getCredit()));
             }
             return returnValue;
         }

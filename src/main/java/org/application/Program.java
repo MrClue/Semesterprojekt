@@ -8,24 +8,13 @@ public class Program implements Serializable {
     private SimpleStringProperty title;
     private String description;
     private int ext_ID;
-    private Credits credit;
 
     public static ArrayList<String> productionsList = new ArrayList<>();
 
-
-    public Program(int ID, String title, String description, Credits credit) {
+    public Program(int ID, String title, String description) {
         this.ext_ID = ID;
         this.title = new SimpleStringProperty(title);
         this.description = description;
-        this.credit = credit;
-
-        productionsList.add(title);
-    }
-
-    public Program(int ID, String title, Credits credit) {
-        this.ext_ID = ID;
-        this.title = new SimpleStringProperty(title);
-        this.credit = credit;
 
         productionsList.add(title);
     }
@@ -54,10 +43,6 @@ public class Program implements Serializable {
 
     public String getTitle() {
         return this.title.get();
-    }
-
-    public void addCredit(Credits credit) {
-        this.credit = credit;
     }
 
     public boolean findCredit(/*Kreditering*/) {
