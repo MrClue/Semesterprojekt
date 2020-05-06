@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.application.Controller;
 import org.application.Program;
+import org.data.DatabaseHandler;
 
 import java.io.IOException;
 import java.util.*;
@@ -30,9 +31,12 @@ public class App extends Application {
 
     private double xOffset = 0;
     private double yOffset = 0;
+    private DatabaseHandler databaseHandler;
 
     @Override
     public void start(Stage stage) throws IOException {
+        databaseHandler = DatabaseHandler.getInstance();
+        databaseHandler.createUser();
         scene = new Scene(loadFXML("loginScreen"));
         //scene.getStylesheets().add("ECMS.css");
         stage.initStyle(StageStyle.UNDECORATED); //removes default top panel of application
