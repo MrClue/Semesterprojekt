@@ -4,13 +4,16 @@ import org.application.Credits;
 import org.application.IDatabaseHandler;
 import org.application.Program;
 
+import org.application.ILogin;
+import org.application.Role;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseHandler implements IDatabaseHandler {
+public class DatabaseHandler implements IDatabaseHandler, ILogin {
     private static DatabaseHandler instance;
-    private String url = "";
+    private String url = "localhost";
     private int port = 5432;
     private String databaseName = "ecms";
     private String username = "postgres";
@@ -99,6 +102,22 @@ public class DatabaseHandler implements IDatabaseHandler {
     @Override
     public boolean deleteCredit() {
         return false;
+    }
+
+    @Override
+    public Role getRole(String username) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM login WHERE username = ?");
+            stmt.setString(1, username);
+            ResultSet sqlReturnValues = stmt.executeQuery();
+            if (!sqlReturnValues.next()) {
+                return null;
+            }
+            return new Role(sqlReturnValues.getString(2), sqlReturnValues.getString(3), sqlReturnValues.getInt(4),sqlReturnValues.getByte(1));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     /*public boolean createUser(){
