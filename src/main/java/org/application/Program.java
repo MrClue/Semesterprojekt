@@ -19,7 +19,6 @@ public class Program implements Serializable {
         productionsList.add(title);
     }
 
-    // temporary
     public Program(int ID, String title){
         this.ID = ID;
         this.title = new SimpleStringProperty(title);
@@ -30,7 +29,7 @@ public class Program implements Serializable {
         productionsList.add(title);
     }
 
-    public static void removeProduction(String title){
+    public static void removeProduction(String title) {
         productionsList.remove(title);
     }
 
