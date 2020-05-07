@@ -36,6 +36,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         databaseHandler = DatabaseHandler.getInstance();
+        databaseHandler.insertProgram(new Program( "batman"));
         System.out.println("Role: "+databaseHandler.getRole("John"));
         scene = new Scene(loadFXML("loginScreen"));
         //scene.getStylesheets().add("ECMS.css");
