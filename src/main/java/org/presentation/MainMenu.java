@@ -65,13 +65,22 @@ public class MainMenu implements Serializable {
         String occupation = occupationField.getText();
         String person = personField.getText();
 
-        // button ADD
+        /**
+         *  Button "ADD"
+         */
         if (event.getSource() == addButton) {
+            /** Lets check if something is actually written inside the "production title" textfield... */
             if (titleDefined && !occupationDefined || titleDefined && !personDefined) {
+                /** Checking if the production title, (written inside the textfield), is already in the list of productions. */
                 if (!Program.checkDuplicateProduction(title)) {
-                    // we must insert a row to the program table
+                    //todo: Inserting a new production to the database (program table).
+                    // <insert code here>
                     
-                    // after table row has been inserted into database
+                    /**
+                     * After the table-row gets inserted into the database,
+                     * we can create the same production in a observable array,
+                     * and display the array in the production table.
+                     */
                     if (databaseHandler.getProgramID(title) > 0){
                         productionsList.add(new Program(databaseHandler.getProgramID(title), title));
                         productionTable.setItems(productionsList);
@@ -104,7 +113,9 @@ public class MainMenu implements Serializable {
                 System.out.println("Something went wrong");
             }
         }
-        // button DELETE
+        /**
+         *  Button "DELETE"
+         */
         else if (event.getSource() == deleteButton) {
             try {
                 if (selectedProduction != -1){
@@ -121,22 +132,38 @@ public class MainMenu implements Serializable {
                 System.out.println("IndexOutOfBoundsException");
             }
         }
-        // button UPDATE
-        /*else if (event.getSource() == updateButton){
-            if (selectedProduction != -1 && !titleField.getText().equals("")){
+        /**
+         *  Button "UPDATE"
+         */
+        else if (event.getSource() == updateButton){
+            if (selectedProduction != -1 && !title.equals("")){
                 Program.removeProduction(getCurrentlySelectedProduction());
                 //productionsList.get(selectedProduction).setTitle(title); // tror ikke dette behøves
 
                 String selectedItem = this.productionTable.getSelectionModel().getSelectedItem().toString();
                 Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item "+selectedItem+" has updated to "+title);
                 dialog.show();
-                productionsList.remove(selectedProduction);
-                productionsList.add(selectedProduction, new Program(title));
-                clearText();
 
+                //todo: We need to remove the "old" production from the program table (or alter/change the current production).
+                // <insert code here>
+
+                // Then we remove the old production from the list
+                productionsList.remove(selectedProduction);
+
+                //todo: We need to add the "updated" production to the database.
+                // <insert code here>
+
+                // adding the updated production to the list
+                if (databaseHandler.getProgramID(title) > 0){
+                    productionsList.add(selectedProduction, new Program(databaseHandler.getProgramID(title), title));
+                    productionTable.setItems(productionsList);
+                } else {
+                    System.out.println("Production doesnt exist in Database");
+                }
+                clearText();
                 productionTable.refresh();
             }
-        }*/
+        }
     }
 
     public void searchFieldProduction(KeyEvent event) {
