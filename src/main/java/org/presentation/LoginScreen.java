@@ -37,11 +37,13 @@ public class LoginScreen {
         String username = usernameTextArea.getText();
         String password = passwordTextArea.getText();
         if (ls.login(username, password)){
-            if (ls.authoritylevel(username) > 1){
+            if (ls.authorityLevel(username) > 1){
                 //implement the code if the user is systemadministrator
+                App.setRoot("mainMenu");
             }
             else {
                 //implement the code if the user is producer
+                System.out.println("Producer specific menu not created.");
             }
         }
 

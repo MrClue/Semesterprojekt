@@ -32,8 +32,7 @@ public class MainMenu implements Serializable {
     // production table
     public TableView<Program> productionTable;
     public TableColumn<Program, String> productionTitle;
-    public ObservableList<Program> productionsList = FXCollections.observableArrayList();
-    public int selectedProduction = -1;
+    //public int selectedProduction = -1;
 
     // credits table
     public TableView<Credits> creditTable;
@@ -46,6 +45,9 @@ public class MainMenu implements Serializable {
         productionTitle.setCellValueFactory(new PropertyValueFactory<Program, String>("title"));
         occupation.setCellValueFactory(new PropertyValueFactory<Credits, String>("occupation"));
         person.setCellValueFactory(new PropertyValueFactory<Credits, String>("person"));
+
+        // retrieving production-data from database
+        productionTable.setItems((ObservableList<Program>) databaseHandler.getPrograms());
     }
 
     public void buttonAction(ActionEvent event){
@@ -71,31 +73,19 @@ public class MainMenu implements Serializable {
         if (event.getSource() == addButton) {
             /** Lets check if something is actually written inside the "production title" textfield... */
             if (titleDefined && !occupationDefined || titleDefined && !personDefined) {
-                /** Checking if the production title, (written inside the textfield), is already in the list of productions. */
-                if (!Program.checkDuplicateProduction(title)) {
-                    //todo: Inserting a new production to the database (program table).
-                    // <insert code here>
-                    
-                    /**
-                     * After the table-row gets inserted into the database,
-                     * we can create the same production in a observable array,
-                     * and display the array in the production table.
-                     */
-                    if (databaseHandler.getProgramID(title) > 0){
-                        productionsList.add(new Program(databaseHandler.getProgramID(title), title));
-                        productionTable.setItems(productionsList);
-                    } else {
-                        System.out.println("Production doesnt exist in Database");
-                    }
-                    clearText();
+                // adding to database if production with given title doesnt exists
+                if (databaseHandler.getProgramID(title) < 0){
+                    databaseHandler.insertProgram(new Program(title));
+                    System.out.println("The production '"+title+"' added to database!");
                 } else {
-                    System.out.println("Production already exists OR a textfield is empty");
+                    System.out.println("The production already exists!");
                 }
-            } /*else {
-                System.out.println("Title field is empty!");
-            }*/
+                productionTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
+                clearText();
+
+            }
             // adding credits for the selected production
-            else if (/*getCurrentlySelectedProduction() != null*/selectedProduction != -1 && occupationDefined && personDefined){
+            else if (getCurrentlySelectedProduction() != null /*selectedProduction != -1*/ && occupationDefined && personDefined){
                 if (!Credits.checkDuplicateCredit(getCurrentlySelectedProduction(), occupation, person)) {
                     // replacing the old production object
                     //Program.removeProduction(getCurrentlySelectedProduction());
@@ -118,13 +108,16 @@ public class MainMenu implements Serializable {
          */
         else if (event.getSource() == deleteButton) {
             try {
-                if (selectedProduction != -1){
-                    Program.removeProduction(getCurrentlySelectedProduction());
-
-                    productionsList.remove(selectedProduction);
+                if (getCurrentlySelectedProduction() != null /*selectedProduction != -1*/){
+                    // extra check to make sure the production to be deleted ACTUALLY exists in database
+                    if (databaseHandler.getProgramID(title) > 0){
+                        databaseHandler.deleteProgram(); //ToDo: call the deleteProgram() method from DatabaseHandler
+                        System.out.println("Production removed.");
+                    } else {
+                        System.out.println("The production: '"+title+"' is not a valid production.");
+                    }
+                    productionTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
                     titleField.clear();
-
-                    System.out.println("Production removed.");
                 } else {
                     System.out.println("No production selected!");
                 }
@@ -136,38 +129,34 @@ public class MainMenu implements Serializable {
          *  Button "UPDATE"
          */
         else if (event.getSource() == updateButton){
-            if (selectedProduction != -1 && !title.equals("")){
-                Program.removeProduction(getCurrentlySelectedProduction());
-                //productionsList.get(selectedProduction).setTitle(title); // tror ikke dette behøves
-
+            if (getCurrentlySelectedProduction() != null /*selectedProduction != -1*/ && !title.equals("")){
                 String selectedItem = this.productionTable.getSelectionModel().getSelectedItem().toString();
-                Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item "+selectedItem+" has updated to "+title);
-                dialog.show();
+                //Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item "+selectedItem+" has updated to "+title);
+                //dialog.show();
 
-                //todo: We need to remove the "old" production from the program table (or alter/change the current production).
-                // <insert code here>
-
-                // Then we remove the old production from the list
-                productionsList.remove(selectedProduction);
-
-                //todo: We need to add the "updated" production to the database.
-                // <insert code here>
-
-                // adding the updated production to the list
+                // We will first check if the new production name isn't already defined in the database.
+                // If the name is not already used, we will proceed to update the production title!
                 if (databaseHandler.getProgramID(title) > 0){
-                    productionsList.add(selectedProduction, new Program(databaseHandler.getProgramID(title), title));
-                    productionTable.setItems(productionsList);
+                    System.out.println("The production '"+title+"' is already in the database!\n"
+                            +"Choose another production title...");
                 } else {
-                    System.out.println("Production doesnt exist in Database");
+                    //todo: We need to update the selected production
+                    //      and then we refresh the table.
+                    databaseHandler.updateProgram(); // todo
+
+                    // Creating update pop-up window
+                    Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item "+selectedItem+" has updated to "+title);
+                    dialog.show();
                 }
+                productionTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
                 clearText();
-                productionTable.refresh();
+                productionTable.refresh(); // maybe useless???
             }
         }
     }
 
     public void searchFieldProduction(KeyEvent event) {
-        FilteredList<Program> filteredList = new FilteredList<>(productionsList, b -> true);
+        FilteredList<Program> filteredList = new FilteredList<>((ObservableList<Program>) databaseHandler.getPrograms()/*productionsList*/, b -> true);
         searchProductions.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredList.setPredicate(program -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -197,7 +186,18 @@ public class MainMenu implements Serializable {
     public String getCurrentlySelectedProduction() {
         int index = productionTable.getSelectionModel().getSelectedIndex();
         Program program = productionTable.getItems().get(index);
-        return program.getTitle(); // kunne være ext_ID
+        return program.getTitle();
+    }
+
+    public void selectedProductionEvent(MouseEvent mouseEvent) {
+        try {
+            //this.selectedProduction = this.productionTable.getSelectionModel().getSelectedIndex();
+            //String selectedItem = this.productionTable.getSelectionModel().getSelectedItem().toString();
+            //this.titleField.setText(selectedItem);
+            this.titleField.setText(getCurrentlySelectedProduction());
+        } catch (Exception e) {
+            System.out.println("No production selected.");
+        }
     }
 
     public void clearSearchText() {
@@ -225,16 +225,6 @@ public class MainMenu implements Serializable {
 
     public void switchToHelpPopup(ActionEvent actionEvent) {
         App.HelpPopUp.display();
-    }
-
-    public void selectedProductionEvent(MouseEvent mouseEvent) {
-        try {
-            this.selectedProduction = this.productionTable.getSelectionModel().getSelectedIndex();
-            String selectedItem = this.productionTable.getSelectionModel().getSelectedItem().toString();
-            this.titleField.setText(selectedItem);
-        } catch (Exception e) {
-            System.out.println("No production selected.");
-        }
     }
 
 }
