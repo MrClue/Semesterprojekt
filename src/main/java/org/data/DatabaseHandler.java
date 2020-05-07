@@ -45,7 +45,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     @Override
     public List<Program> getPrograms() {
         try {
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM programs");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM program");
             ResultSet sqlReturnValues = stmt.executeQuery();
             List<Program> returnValue = new ArrayList<>();
             while (sqlReturnValues.next()) {
@@ -62,10 +62,13 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     @Override
     public int getProgramID(String productionTitle) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM programs WHERE programtitle = ?");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM program WHERE programtitle = ?");
             stmt.setString(1, productionTitle);
 
             ResultSet sqlReturnValues = stmt.executeQuery();
+            if (!sqlReturnValues.next()){
+                return -1;
+            }
 
             return sqlReturnValues.getInt(1);
         }
