@@ -49,7 +49,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
             ResultSet sqlReturnValues = stmt.executeQuery();
             List<Program> returnValue = new ArrayList<>();
             while (sqlReturnValues.next()) {
-                //returnValue.add(new Program(sqlReturnValues.getInt(1), sqlReturnValues.getString(2), sqlReturnValues.getCredit()));
+                returnValue.add(new Program(sqlReturnValues.getInt(1), sqlReturnValues.getString(2)));
             }
             return returnValue;
         }
@@ -79,8 +79,17 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     }
 
     @Override
-    public boolean createProgram(Program program) {
-        return false;
+    public boolean insertProgram(Program program) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO program (programtitle)" + "VALUES (?)");
+            stmt.setString(1, program.getTitle());
+            stmt.execute();
+            return true;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
@@ -104,7 +113,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     }
 
     @Override
-    public boolean createCredit(Credits credit) {
+    public boolean insertCredit(Credits credit) {
         return false;
     }
 

@@ -25,6 +25,11 @@ public class Program implements Serializable {
         productionsList.add(title);
     }
 
+    public Program(String title){
+        this.title = new SimpleStringProperty(title);
+        productionsList.add(title);
+    }
+
     public static void addProduction(String title) {
         productionsList.add(title);
     }
