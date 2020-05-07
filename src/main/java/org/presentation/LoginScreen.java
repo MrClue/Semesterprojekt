@@ -37,7 +37,12 @@ public class LoginScreen {
         String username = usernameTextArea.getText();
         String password = passwordTextArea.getText();
         if (ls.login(username, password)){
-            App.setRoot("mainMenu");
+            if (ls.authoritylevel(username) > 1){
+                //implement the code if the user is systemadministrator
+            }
+            else {
+                //implement the code if the user is producer
+            }
         }
 
     }
