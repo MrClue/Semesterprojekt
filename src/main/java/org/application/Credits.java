@@ -11,8 +11,8 @@ public class Credits {
     private SimpleStringProperty occupation;
     private SimpleStringProperty person;
 
-    public Credits (int ID, String occupation, String person){
-        this.productionID = new SimpleIntegerProperty(ID); //test
+    public Credits (int programID, String occupation, String person){
+        this.productionID = new SimpleIntegerProperty(programID);
         this.occupation = new SimpleStringProperty(occupation);
         this.person = new SimpleStringProperty(person);
     }
