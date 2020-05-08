@@ -43,7 +43,7 @@ public class LoginScreen {
             }
             else {
                 //implement the code if the user is producer
-                System.out.println("Producer specific menu not created.");
+                App.setRoot("mainMenu");
             }
         }
 

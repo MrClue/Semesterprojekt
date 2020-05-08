@@ -1,24 +1,20 @@
 package org.application;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 
 public class Credits {
-    private SimpleStringProperty productionTitle;
+    private SimpleIntegerProperty productionID;
     private SimpleStringProperty occupation;
     private SimpleStringProperty person;
 
-    public static ArrayList<String> creditsList = new ArrayList<>();
-
-    public Credits (String ID, String occupation, String person){
-        this.productionTitle = new SimpleStringProperty(ID); //test
+    public Credits (int ID, String occupation, String person){
+        this.productionID = new SimpleIntegerProperty(ID); //test
         this.occupation = new SimpleStringProperty(occupation);
         this.person = new SimpleStringProperty(person);
-        creditsList.add(ID); // test
-        creditsList.add(occupation);
-        creditsList.add(person);
     }
 
     public String getOccupation() {
@@ -37,15 +33,7 @@ public class Credits {
         this.person.set(name);
     }
 
-    public static boolean checkDuplicateCredit(String ID, String occupation, String name) {
-        boolean check = false;
-        if (creditsList.contains(ID) && creditsList.contains(occupation) && creditsList.contains(name)){
-            check = true;
-        }
-        return check;
-    }
-
-    public String getProductionTitle() {
-        return productionTitle.get();
+    public int getProductionID() {
+        return productionID.get();
     }
 }

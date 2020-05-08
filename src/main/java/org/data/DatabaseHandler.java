@@ -99,35 +99,77 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     @Override
     public boolean updateProgram() {
         return false;
+        /*try {
+            PreparedStatement stmt = connection.prepareStatement("UPDATE program SET programtitle = ? WHERE programtitle = ?");
+
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+
+         */
     }
 
     @Override
-    public boolean deleteProgram() {
-        return false;
+    public boolean deleteProgram(String programtitle) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement("DELETE FROM program WHERE programtitle = ?");
+            stmt.setString(1, programtitle);
+            stmt.execute();
+            return true;
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public List<Credits> getCredits() {
-        return null;
+        try {
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM credits");
+            ResultSet sqlReturnValues = stmt.executeQuery();
+            List<Credits> returnValue = new ArrayList<>();
+            while (sqlReturnValues.next()) {
+                returnValue.add(new Credits(sqlReturnValues.getInt(1), sqlReturnValues.getString(2), sqlReturnValues.getString(3)));
+            }
+            return returnValue;
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public Credits getCredit(int id) {
-        return null;
+    public int getCredit(String programTitle, String occupation, String person) {
+        return -1;
     }
 
     @Override
-    public boolean insertCredit(Credits credit) {
+    public boolean insertCredits(Credits credits) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO credits (occupation, person)"
+                    + "VALUES (?, ?)");
+            stmt.setString(1, credits.getOccupation());
+            stmt.setString(2, credits.getPerson());
+            stmt.execute();
+            return true;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateCredits() {
         return false;
     }
 
     @Override
-    public boolean updateCredit() {
-        return false;
-    }
-
-    @Override
-    public boolean deleteCredit() {
+    public boolean deleteCredits() {
         return false;
     }
 
