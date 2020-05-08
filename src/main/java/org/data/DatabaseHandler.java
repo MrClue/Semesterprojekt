@@ -1,8 +1,6 @@
 package org.data;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
 import org.application.Credits;
 import org.application.IDatabaseHandler;
 import org.application.Program;
@@ -112,10 +110,10 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     }
 
     @Override
-    public boolean deleteProgram(String programtitle) {
+    public boolean deleteProgram(String programTitle) {
         try {
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM program WHERE programtitle = ?");
-            stmt.setString(1, programtitle);
+            stmt.setString(1, programTitle);
             stmt.execute();
             return true;
         }
@@ -132,9 +130,9 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
             ResultSet sqlReturnValues = stmt.executeQuery();
             List<Credits> returnValue = new ArrayList<>();
             while (sqlReturnValues.next()) {
-                returnValue.add(new Credits(sqlReturnValues.getInt(1), sqlReturnValues.getString(2), sqlReturnValues.getString(3)));
+                returnValue.add(new Credits(sqlReturnValues.getInt(2), sqlReturnValues.getString(3), sqlReturnValues.getString(4)));
             }
-            return returnValue;
+            return FXCollections.observableList(returnValue);
         }
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -143,17 +141,23 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     }
 
     @Override
-    public int getCredit(String programTitle, String occupation, String person) {
+    public List<Credits> getProductionCredits() {
+        return null;
+    }
+
+    @Override
+    public int getCreditID(String programTitle, String occupation, String person) {
         return -1;
     }
 
     @Override
-    public boolean insertCredits(Credits credits) {
+    public boolean insertCredit(Credits credits) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO credits (occupation, person)"
-                    + "VALUES (?, ?)");
-            stmt.setString(1, credits.getOccupation());
-            stmt.setString(2, credits.getPerson());
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO credits (program_id, occupation, person)"
+                    + "VALUES (?, ?, ?)");
+            stmt.setInt(1, credits.getProductionID());
+            stmt.setString(2, credits.getOccupation());
+            stmt.setString(3, credits.getPerson());
             stmt.execute();
             return true;
         }
@@ -164,10 +168,26 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     }
 
     @Override
-    public boolean updateCredits() {
+    public boolean updateCredit() {
         return false;
     }
 
+    @Override
+    public boolean deleteCredit(int programID, String occupation, String person){
+        try {
+            PreparedStatement stmt = connection.prepareStatement("DELETE FROM credits WHERE program_id = ? AND occupation = ? AND person = ?");
+            stmt.setInt(1, programID);
+            stmt.setString(2, occupation);
+            stmt.setString(3, person);
+            stmt.execute();
+            return true;
+        }
+        catch (SQLException ex) {
+            System.out.println("No matching credit found - see deleteCredit()");
+            ex.printStackTrace();
+            return false;
+        }
+    }
     @Override
     public boolean deleteCredits() {
         return false;
