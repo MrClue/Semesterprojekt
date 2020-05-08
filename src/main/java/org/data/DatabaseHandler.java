@@ -1,5 +1,8 @@
 package org.data;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import org.application.Credits;
 import org.application.IDatabaseHandler;
 import org.application.Program;
@@ -51,7 +54,8 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
             while (sqlReturnValues.next()) {
                 returnValue.add(new Program(sqlReturnValues.getInt(1), sqlReturnValues.getString(2)));
             }
-            return returnValue;
+
+            return FXCollections.observableList(returnValue);
         }
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -131,7 +135,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     public Role getRole(String username) {
         try {
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM login WHERE username = ?");
-            stmt.setString(1, username);
+            stmt.setString(1, username.toLowerCase());
             ResultSet sqlReturnValues = stmt.executeQuery();
             if (!sqlReturnValues.next()) {
                 return null;

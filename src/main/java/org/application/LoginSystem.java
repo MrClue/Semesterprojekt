@@ -26,7 +26,7 @@ public class LoginSystem {
         return valid;
     }
 
-    public int authoritylevel(String username){
+    public int authorityLevel(String username){
         Role role = databaseHandler.getRole(username);
         return role.getAuthLvl();
     }
