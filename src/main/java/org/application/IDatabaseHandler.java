@@ -13,7 +13,7 @@ public interface IDatabaseHandler {
     public List<Credits> getProductionCredits(Program program); //todo: gets credits for the selected production
     public int getCreditID(String programTitle, String occupation, String person);
     public boolean insertCredit(Credits credits);
-    public boolean updateCredit();
+    public boolean updateCredit(String occupation, String person);
     public boolean deleteCredit(int programID, String occupation, String person);
     public boolean deleteCredits();
 }
