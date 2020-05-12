@@ -64,7 +64,10 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     @Override
     public int getProgramID(String productionTitle) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM program WHERE programtitle = ?");
+            PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT * FROM program " +
+                            "WHERE programtitle = ?"
+            );
             stmt.setString(1, productionTitle);
 
             ResultSet sqlReturnValues = stmt.executeQuery();
@@ -82,7 +85,10 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     @Override
     public boolean insertProgram(Program program) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO program (programtitle)" + "VALUES (?)");
+            PreparedStatement stmt = connection.prepareStatement(
+                    "INSERT INTO program (programtitle) " +
+                            "VALUES (?)"
+            );
             stmt.setString(1, program.getTitle());
             stmt.execute();
             return true;
@@ -94,25 +100,32 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     }
 
     @Override
-    public boolean updateProgram() {
-        return false;
-        /*try {
-            PreparedStatement stmt = connection.prepareStatement("UPDATE program WHERE programtitle = ? SET programtitle = ?");
-
+    public boolean updateProgram(int program_ID, String programTitle) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE program " +
+                            "SET programtitle = ?" +
+                            "WHERE id = ?"
+            );
+            statement.setString(1, programTitle);
+            statement.setInt(2, program_ID);
+            statement.execute();
+            return true;
         }
         catch (SQLException ex) {
             ex.printStackTrace();
             return false;
         }
-
-         */
     }
 
     @Override
-    public boolean deleteProgram(String programTitle) {
+    public boolean deleteProgram(int program_ID) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("DELETE FROM program WHERE programtitle = ?");
-            stmt.setString(1, programTitle);
+            PreparedStatement stmt = connection.prepareStatement(
+                    "DELETE FROM program " +
+                            "WHERE id = ?"
+            );
+            stmt.setInt(1, program_ID);
             stmt.execute();
             return true;
         }
@@ -129,7 +142,11 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
             ResultSet sqlReturnValues = stmt.executeQuery();
             List<Credits> returnValue = new ArrayList<>();
             while (sqlReturnValues.next()) {
-                returnValue.add(new Credits(sqlReturnValues.getInt(2), sqlReturnValues.getString(3), sqlReturnValues.getString(4)));
+                returnValue.add(new Credits(
+                        sqlReturnValues.getInt(2),
+                        sqlReturnValues.getString(3),
+                        sqlReturnValues.getString(4)
+                ));
             }
             return FXCollections.observableList(returnValue);
         }
@@ -155,7 +172,12 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     public int getCreditID(int program_id, String occupation, String person) {
         try {
             int value = -1;
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM credits WHERE program_id = ? AND occupation = ? AND person = ?");
+            PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT * FROM credits " +
+                            "WHERE program_id = ? " +
+                            "AND occupation = ? " +
+                            "AND person = ?"
+            );
             stmt.setInt(1, program_id);
             stmt.setString(2, occupation);
             stmt.setString(3, person);
@@ -177,8 +199,10 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     @Override
     public boolean insertCredit(Credits credits) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO credits (program_id, occupation, person)"
-                    + "VALUES (?, ?, ?)");
+            PreparedStatement stmt = connection.prepareStatement(
+                    "INSERT INTO credits (program_id, occupation, person) " +
+                            "VALUES (?, ?, ?)"
+            );
             stmt.setInt(1, credits.getProgramID());
             stmt.setString(2, credits.getOccupation());
             stmt.setString(3, credits.getPerson());
@@ -194,8 +218,16 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     @Override
     public boolean updateCredit(int creditID, String occupation, String person) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE credits SET occupation = ? WHERE id = ?");
-            PreparedStatement statement2 = connection.prepareStatement("UPDATE credits SET person = ? WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE credits " +
+                            "SET occupation = ? " +
+                            "WHERE id = ?"
+            );
+            PreparedStatement statement2 = connection.prepareStatement(
+                    "UPDATE credits " +
+                            "SET person = ? " +
+                            "WHERE id = ?"
+            );
             statement.setString(1, occupation);
             statement.setInt(2, creditID);
             statement2.setString(1, person);
@@ -213,7 +245,12 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     @Override
     public boolean deleteCredit(int programID, String occupation, String person){
         try {
-            PreparedStatement stmt = connection.prepareStatement("DELETE FROM credits WHERE program_id = ? AND occupation = ? AND person = ?");
+            PreparedStatement stmt = connection.prepareStatement(
+                    "DELETE FROM credits " +
+                            "WHERE program_id = ? " +
+                            "AND occupation = ? " +
+                            "AND person = ?"
+            );
             stmt.setInt(1, programID);
             stmt.setString(2, occupation);
             stmt.setString(3, person);
@@ -234,13 +271,21 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     @Override
     public Role getRole(String username) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM login WHERE username = ?");
-            stmt.setString(1, username);
+            PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT * FROM login " +
+                            "WHERE username = ?"
+            );
+            stmt.setString(1, username.toLowerCase()); // all usernames are in lowercase in database
             ResultSet sqlReturnValues = stmt.executeQuery();
             if (!sqlReturnValues.next()) {
                 return null;
             }
-            return new Role(sqlReturnValues.getString(2), sqlReturnValues.getString(3), sqlReturnValues.getInt(4),sqlReturnValues.getByte(1));
+            return new Role(
+                    sqlReturnValues.getString(2),
+                    sqlReturnValues.getString(3),
+                    sqlReturnValues.getInt(4),
+                    sqlReturnValues.getByte(1)
+            );
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;

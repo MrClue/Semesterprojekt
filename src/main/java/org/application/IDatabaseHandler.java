@@ -6,8 +6,8 @@ public interface IDatabaseHandler {
     public List<Program> getPrograms();
     public int getProgramID(String productionTitle);
     public boolean insertProgram(Program program);
-    public boolean updateProgram();
-    public boolean deleteProgram(String programTitle); //todo: could be a void?
+    public boolean updateProgram(int program_ID, String programTitle);
+    public boolean deleteProgram(int programID); //todo: could be a void?
 
     public List<Credits> getCredits(); // gets all credits in database
     public List<Credits> getProgramCredits(int program_id); //todo: gets credits for the selected production
