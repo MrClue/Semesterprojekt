@@ -36,12 +36,6 @@ public class Program implements Serializable {
         return this.title.get();
     }
 
-    public boolean findCredit(/*Kreditering*/) {
-        boolean exist = false;
-        //if it exists, then "exist" = true;
-        return exist;
-    }
-
     @Override
     public String toString(){
         return getTitle();

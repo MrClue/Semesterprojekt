@@ -237,9 +237,11 @@ public class MainMenu implements Serializable {
 
     public void signOut(ActionEvent actionEvent) throws IOException {
         try {
-            throw new UnsupportedOperationException("Not implemented");
+            App.setRoot("loginScreen");
+            //throw new UnsupportedOperationException("Not implemented");
         } catch (Exception ex) {
-            System.out.println("Action not implemented.");
+            //System.out.println("Action not implemented.");
+            ex.printStackTrace();
         }
     }
 
