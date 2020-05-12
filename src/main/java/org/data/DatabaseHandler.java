@@ -100,7 +100,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     public boolean updateProgram() {
         return false;
         /*try {
-            PreparedStatement stmt = connection.prepareStatement("UPDATE program SET programtitle = ? WHERE programtitle = ?");
+            PreparedStatement stmt = connection.prepareStatement("UPDATE program WHERE programtitle = ? SET programtitle = ?");
 
         }
         catch (SQLException ex) {
@@ -128,11 +128,11 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     @Override
     public List<Credits> getCredits() {
         try {
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM credit");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM credits");
             ResultSet sqlReturnValues = stmt.executeQuery();
             List<Credits> returnValue = new ArrayList<>();
             while (sqlReturnValues.next()) {
-                returnValue.add(new Credits(sqlReturnValues.getInt(4), sqlReturnValues.getString(3), sqlReturnValues.getString(2)));
+                returnValue.add(new Credits(sqlReturnValues.getInt(2), sqlReturnValues.getString(3), sqlReturnValues.getString(4)));
             }
             return FXCollections.observableList(returnValue);
         }
@@ -156,7 +156,24 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
 
     @Override
     public int getCreditID(String programTitle, String occupation, String person) {
-        return -1;
+        try {
+            PreparedStatement stmt = connection.prepareStatement("SELECT FROM credits WHERE (programtitle, occupation, person)"
+                    + " VALUES (?, ?, ?)");
+            stmt.setString(1, programTitle);
+            stmt.setString(2, occupation);
+            stmt.setString(3, person);
+
+            ResultSet sqlReturnValues = stmt.executeQuery();
+            if (!sqlReturnValues.next()){
+                return -1;
+            }
+
+            return sqlReturnValues.getInt(1);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     @Override
@@ -177,7 +194,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     }
 
     @Override
-    public boolean updateCredit() {
+    public boolean updateCredit(String occupation, String person) {
         return false;
     }
 
