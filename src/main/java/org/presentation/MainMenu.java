@@ -78,19 +78,20 @@ public class MainMenu implements Serializable {
                 } else {
                     System.out.println("The production already exists!");
                 }
-                productionTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
+              //  productionTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
                 clearText();
 
             }
             // adding credits for the selected production
             else if (getCurrentlySelectedProduction() != null /*selectedProduction != -1*/ && occupationDefined && personDefined){
                 // checking if credit for selected production doesnt exists in the database
-                if (databaseHandler.getCreditID(getCurrentlySelectedProduction(), occupation, person) < 0){
+                if (databaseHandler.getCreditID(databaseHandler.getProgramID(getCurrentlySelectedProduction()), occupation, person) < 0){
                     databaseHandler.insertCredit(new Credits(databaseHandler.getProgramID(getCurrentlySelectedProduction()), occupation, person));
                 } else {
                     System.out.println("Credit already exists in database");
                 }
-                creditTable.setItems((ObservableList<Credits>) databaseHandler.getCredits()); // refreshing data
+
+                creditTable.setItems((ObservableList<Credits>) databaseHandler.getProgramCredits(databaseHandler.getProgramID(getCurrentlySelectedProduction()))); // refreshing data
                 clearText();
 
             } else {
@@ -203,7 +204,8 @@ public class MainMenu implements Serializable {
     public String getCurrentlySelectedProduction() {
         int index = productionTable.getSelectionModel().getSelectedIndex();
         Program program = productionTable.getItems().get(index);
-        creditTable.setItems((ObservableList<Credits>) databaseHandler.getProductionCredits(program)); // refreshing credit data
+        creditTable.setItems((ObservableList<Credits>) databaseHandler.getProgramCredits(program.getID())); // refreshing credit data
+        System.out.println(program.getTitle());
         return program.getTitle();
     }
 
