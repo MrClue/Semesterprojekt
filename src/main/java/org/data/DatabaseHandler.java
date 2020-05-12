@@ -71,7 +71,9 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
             if (!sqlReturnValues.next()){
                 return -1;
             }
-
+            if (!sqlReturnValues.next()) {
+                return -1;
+            }
             return sqlReturnValues.getInt(1);
         }
         catch (SQLException ex) {
@@ -126,11 +128,11 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     @Override
     public List<Credits> getCredits() {
         try {
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM credits");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM credit");
             ResultSet sqlReturnValues = stmt.executeQuery();
             List<Credits> returnValue = new ArrayList<>();
             while (sqlReturnValues.next()) {
-                returnValue.add(new Credits(sqlReturnValues.getInt(2), sqlReturnValues.getString(3), sqlReturnValues.getString(4)));
+                returnValue.add(new Credits(sqlReturnValues.getInt(4), sqlReturnValues.getString(3), sqlReturnValues.getString(2)));
             }
             return FXCollections.observableList(returnValue);
         }
@@ -141,8 +143,15 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     }
 
     @Override
-    public List<Credits> getProductionCredits() {
-        return null;
+    public List<Credits> getProductionCredits(Program program) {
+            List<Credits> listOfCredits = getCredits();
+            List<Credits> newListOfCredits = new ArrayList<>();
+        for (Credits credit: listOfCredits) {
+            if (credit.getProductionID() == program.getID()){
+                newListOfCredits.add(credit);
+            }
+        }
+            return FXCollections.observableList(newListOfCredits);
     }
 
     @Override
@@ -197,7 +206,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     public Role getRole(String username) {
         try {
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM login WHERE username = ?");
-            stmt.setString(1, username.toLowerCase());
+            stmt.setString(1, username);
             ResultSet sqlReturnValues = stmt.executeQuery();
             if (!sqlReturnValues.next()) {
                 return null;
