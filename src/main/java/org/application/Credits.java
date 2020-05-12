@@ -2,9 +2,6 @@ package org.application;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
-import java.util.ArrayList;
 
 public class Credits {
     private SimpleIntegerProperty productionID;

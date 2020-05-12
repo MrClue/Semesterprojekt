@@ -80,7 +80,7 @@
                   <Font name="Ebrima Bold" size="13.0" />
                </font>
             </Label>
-            <RadioButton fx:id="rememberMeButton" layoutX="55.0" layoutY="403.0" mnemonicParsing="false" styleClass="rememberMeButton" text="Remember me">
+            <RadioButton fx:id="rememberMeButton" layoutX="55.0" layoutY="403.0" mnemonicParsing="false" onAction="#rememberLogin" styleClass="rememberMeButton" text="Remember me">
                <font>
                   <Font name="Ebrima Bold" size="13.0" />
                </font>
