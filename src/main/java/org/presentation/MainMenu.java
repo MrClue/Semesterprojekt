@@ -78,7 +78,7 @@ public class MainMenu implements Serializable {
                 } else {
                     System.out.println("The production already exists!");
                 }
-              //  productionTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
+                productionTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
                 clearText();
 
             }
@@ -100,32 +100,40 @@ public class MainMenu implements Serializable {
         }
         /**
          *  Button "DELETE"
+         *  todo: Af en eller anden grund kan man kun slette credits...
          */
         else if (event.getSource() == deleteButton) {
             try {
-                if (getCurrentlySelectedCreditOccupation() != null && getCurrentlySelectedCreditPerson() != null) {
-                    databaseHandler.deleteCredit(databaseHandler.getProgramID(title), occupation, person);
-                    creditTable.setItems((ObservableList<Credits>) databaseHandler.getCredits()); // refreshing data
-                    return;
-                } else {
-                    System.out.println("No credit selected!");
-                }
-
-                if (getCurrentlySelectedProduction() != null){
-                    // extra check to make sure the production to be deleted ACTUALLY exists in database
-                    if (databaseHandler.getProgramID(title) > 0){
-                        databaseHandler.deleteProgram(getCurrentlySelectedProduction()); //ToDo: call the deleteProgram() method from DatabaseHandler
-                        System.out.println("Production removed.");
+                // make sure credit table is empty
+                if (creditTable.getItems().isEmpty()){
+                    // now lets delete the selected program
+                    if (getCurrentlySelectedProduction() != null){
+                        // extra check to make sure the production to be deleted ACTUALLY exists in database
+                        if (databaseHandler.getProgramID(title) > 0){
+                            databaseHandler.deleteProgram(databaseHandler.getProgramID(title)); //ToDo: call the deleteProgram() method from DatabaseHandler
+                            System.out.println("Production removed.");
+                        } else {
+                            System.out.println("The production: '"+title+"' is not a valid production.");
+                        }
+                        productionTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
+                        titleField.clear();
                     } else {
-                        System.out.println("The production: '"+title+"' is not a valid production.");
+                        System.out.println("No production selected!");
                     }
-                    productionTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
-                    titleField.clear();
                 } else {
-                    System.out.println("No production selected!");
+                    // we must delete the credits first!
+                    if (getCurrentlySelectedCreditOccupation() != null && getCurrentlySelectedCreditPerson() != null) {
+                        databaseHandler.deleteCredit(databaseHandler.getProgramID(title), occupation, person);
+                        creditTable.setItems((ObservableList<Credits>) databaseHandler.getCredits()); // refreshing data
+                        //return;
+                    } else {
+                        System.out.println("No credit selected!");
+                    }
                 }
             } catch (Exception e) {
                 System.out.println("IndexOutOfBoundsException");
+                System.out.println("(!) Always delete the associated credits first!");
+                //e.printStackTrace();
             }
         }
         /**
@@ -145,7 +153,7 @@ public class MainMenu implements Serializable {
                 } else {
                     //todo: We need to update the selected production
                     //      and then we refresh the table.
-                    databaseHandler.updateProgram(); // todo
+                    databaseHandler.updateProgram(databaseHandler.getProgramID(getCurrentlySelectedProduction()), title); // todo
 
                     // Creating update pop-up window
                     Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item "+selectedItem+" has updated to "+title);
@@ -204,7 +212,7 @@ public class MainMenu implements Serializable {
     public String getCurrentlySelectedProduction() {
         int index = productionTable.getSelectionModel().getSelectedIndex();
         Program program = productionTable.getItems().get(index);
-        creditTable.setItems((ObservableList<Credits>) databaseHandler.getProgramCredits(program.getID())); // refreshing credit data
+        creditTable.setItems((ObservableList<Credits>) databaseHandler.getProgramCredits(program.getID())); // refresh credit data based on selected program
         System.out.println(program.getTitle());
         return program.getTitle();
     }
