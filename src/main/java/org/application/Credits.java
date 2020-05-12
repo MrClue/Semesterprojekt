@@ -33,7 +33,7 @@ public class Credits {
         this.person.set(name);
     }
 
-    public int getProductionID() {
+    public int getProgramID() {
         return productionID.get();
     }
     @Override

@@ -10,10 +10,10 @@ public interface IDatabaseHandler {
     public boolean deleteProgram(String programTitle); //todo: could be a void?
 
     public List<Credits> getCredits(); // gets all credits in database
-    public List<Credits> getProductionCredits(Program program); //todo: gets credits for the selected production
-    public int getCreditID(String programTitle, String occupation, String person);
+    public List<Credits> getProgramCredits(int program_id); //todo: gets credits for the selected production
+    public int getCreditID(int program_id, String occupation, String person);
     public boolean insertCredit(Credits credits);
-    public boolean updateCredit(String occupation, String person);
+    public boolean updateCredit(int creditID, String occupation, String person);
     public boolean deleteCredit(int programID, String occupation, String person);
     public boolean deleteCredits();
 }

@@ -71,9 +71,6 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
             if (!sqlReturnValues.next()){
                 return -1;
             }
-            if (!sqlReturnValues.next()) {
-                return -1;
-            }
             return sqlReturnValues.getInt(1);
         }
         catch (SQLException ex) {
@@ -143,11 +140,11 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     }
 
     @Override
-    public List<Credits> getProductionCredits(Program program) {
+    public List<Credits> getProgramCredits(int program_id) {
             List<Credits> listOfCredits = getCredits();
             List<Credits> newListOfCredits = new ArrayList<>();
         for (Credits credit: listOfCredits) {
-            if (credit.getProductionID() == program.getID()){
+            if (credit.getProgramID() == program_id){
                 newListOfCredits.add(credit);
             }
         }
@@ -155,20 +152,21 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     }
 
     @Override
-    public int getCreditID(String programTitle, String occupation, String person) {
+    public int getCreditID(int program_id, String occupation, String person) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("SELECT FROM credits WHERE (programtitle, occupation, person)"
-                    + " VALUES (?, ?, ?)");
-            stmt.setString(1, programTitle);
+            int value = -1;
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM credits WHERE program_id = ? AND occupation = ? AND person = ?");
+            stmt.setInt(1, program_id);
             stmt.setString(2, occupation);
             stmt.setString(3, person);
 
             ResultSet sqlReturnValues = stmt.executeQuery();
-            if (!sqlReturnValues.next()){
-                return -1;
-            }
+               if (sqlReturnValues.next()){
+                   value = sqlReturnValues.getInt(1);
+               }
 
-            return sqlReturnValues.getInt(1);
+
+            return value;
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -181,7 +179,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
         try {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO credits (program_id, occupation, person)"
                     + "VALUES (?, ?, ?)");
-            stmt.setInt(1, credits.getProductionID());
+            stmt.setInt(1, credits.getProgramID());
             stmt.setString(2, credits.getOccupation());
             stmt.setString(3, credits.getPerson());
             stmt.execute();
@@ -194,8 +192,22 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     }
 
     @Override
-    public boolean updateCredit(String occupation, String person) {
-        return false;
+    public boolean updateCredit(int creditID, String occupation, String person) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("UPDATE credits SET occupation = ? WHERE id = ?");
+            PreparedStatement statement2 = connection.prepareStatement("UPDATE credits SET person = ? WHERE id = ?");
+            statement.setString(1, occupation);
+            statement.setInt(2, creditID);
+            statement2.setString(1, person);
+            statement2.setInt(2, creditID);
+
+            statement.execute();
+            statement2.execute();
+            return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
     }
 
     @Override
