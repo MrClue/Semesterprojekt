@@ -36,4 +36,12 @@ public class Credits {
     public int getProductionID() {
         return productionID.get();
     }
+    @Override
+    public String toString() {
+        return "Credits{" +
+                "productionID=" + productionID +
+                ", occupation=" + occupation +
+                ", person=" + person +
+                '}';
+    }
 }

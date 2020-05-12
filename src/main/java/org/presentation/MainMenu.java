@@ -203,7 +203,7 @@ public class MainMenu implements Serializable {
     public String getCurrentlySelectedProduction() {
         int index = productionTable.getSelectionModel().getSelectedIndex();
         Program program = productionTable.getItems().get(index);
-        creditTable.setItems((ObservableList<Credits>) databaseHandler.getCredits()); // refreshing credit data
+        creditTable.setItems((ObservableList<Credits>) databaseHandler.getProductionCredits(program)); // refreshing credit data
         return program.getTitle();
     }
 
