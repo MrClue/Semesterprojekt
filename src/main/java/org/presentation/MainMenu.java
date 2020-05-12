@@ -124,8 +124,8 @@ public class MainMenu implements Serializable {
                     // we must delete the credits first!
                     if (getCurrentlySelectedCreditOccupation() != null && getCurrentlySelectedCreditPerson() != null) {
                         databaseHandler.deleteCredit(databaseHandler.getProgramID(title), occupation, person);
-                        creditTable.setItems((ObservableList<Credits>) databaseHandler.getCredits()); // refreshing data
-                        //return;
+                        creditTable.setItems((ObservableList<Credits>) databaseHandler.getProgramCredits(databaseHandler.getProgramID(getCurrentlySelectedProduction()))); // refreshing data
+                        clearText();
                     } else {
                         System.out.println("No credit selected!");
                     }
