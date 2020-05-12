@@ -22,7 +22,7 @@ import java.io.Serializable;
  * Make it possible to type Production title and Credit information at the same time.
  * Make a search bar for the Credit table.
  * Fix errors and optimize logic.
- * */
+ */
 
 public class MainMenu implements Serializable {
     public Button signOut, closeButton, helpButton, addButton, deleteButton, updateButton;
@@ -48,7 +48,7 @@ public class MainMenu implements Serializable {
         //creditTable.setItems((ObservableList<Credits>) databaseHandler.getCredits());
     }
 
-    public void buttonAction(ActionEvent event){
+    public void buttonAction(ActionEvent event) {
         /**
          * Defining textField states for code-reusability.
          * Also asserting that the textFields cant be null.
@@ -72,9 +72,9 @@ public class MainMenu implements Serializable {
             /** Lets check if something is actually written inside the "production title" textfield... */
             if (titleDefined && !occupationDefined || titleDefined && !personDefined) {
                 // adding to database if production with given title doesnt exists
-                if (databaseHandler.getProgramID(title) < 0){
+                if (databaseHandler.getProgramID(title) < 0) {
                     databaseHandler.insertProgram(new Program(title));
-                    System.out.println("The production '"+title+"' added to database!");
+                    System.out.println("The production '" + title + "' added to database!");
                 } else {
                     System.out.println("The production already exists!");
                 }
@@ -83,9 +83,9 @@ public class MainMenu implements Serializable {
 
             }
             // adding credits for the selected production
-            else if (getCurrentlySelectedProduction() != null /*selectedProduction != -1*/ && occupationDefined && personDefined){
+            else if (getCurrentlySelectedProduction() != null /*selectedProduction != -1*/ && occupationDefined && personDefined) {
                 // checking if credit for selected production doesnt exists in the database
-                if (databaseHandler.getCreditID(databaseHandler.getProgramID(getCurrentlySelectedProduction()), occupation, person) < 0){
+                if (databaseHandler.getCreditID(databaseHandler.getProgramID(getCurrentlySelectedProduction()), occupation, person) < 0) {
                     databaseHandler.insertCredit(new Credits(databaseHandler.getProgramID(getCurrentlySelectedProduction()), occupation, person));
                 } else {
                     System.out.println("Credit already exists in database");
@@ -105,15 +105,15 @@ public class MainMenu implements Serializable {
         else if (event.getSource() == deleteButton) {
             try {
                 // make sure credit table is empty
-                if (creditTable.getItems().isEmpty()){
+                if (creditTable.getItems().isEmpty()) {
                     // now lets delete the selected program
-                    if (getCurrentlySelectedProduction() != null){
+                    if (getCurrentlySelectedProduction() != null) {
                         // extra check to make sure the production to be deleted ACTUALLY exists in database
-                        if (databaseHandler.getProgramID(title) > 0){
+                        if (databaseHandler.getProgramID(title) > 0) {
                             databaseHandler.deleteProgram(databaseHandler.getProgramID(title)); //ToDo: call the deleteProgram() method from DatabaseHandler
                             System.out.println("Production removed.");
                         } else {
-                            System.out.println("The production: '"+title+"' is not a valid production.");
+                            System.out.println("The production: '" + title + "' is not a valid production.");
                         }
                         productionTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
                         titleField.clear();
@@ -139,24 +139,24 @@ public class MainMenu implements Serializable {
         /**
          *  Button "UPDATE"
          */
-        else if (event.getSource() == updateButton){
-            if (getCurrentlySelectedProduction() != null /*selectedProduction != -1*/ && !title.equals("")){
+        else if (event.getSource() == updateButton) {
+            if (getCurrentlySelectedProduction() != null /*selectedProduction != -1*/ && !title.equals("")) {
                 String selectedItem = this.productionTable.getSelectionModel().getSelectedItem().toString();
                 //Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item "+selectedItem+" has updated to "+title);
                 //dialog.show();
 
                 // We will first check if the new production name isn't already defined in the database.
                 // If the name is not already used, we will proceed to update the production title!
-                if (databaseHandler.getProgramID(title) > 0){
-                    System.out.println("The production '"+title+"' is already in the database!\n"
-                            +"Choose another production title...");
+                if (databaseHandler.getProgramID(title) > 0) {
+                    System.out.println("The production '" + title + "' is already in the database!\n"
+                            + "Choose another production title...");
                 } else {
                     //todo: We need to update the selected production
                     //      and then we refresh the table.
                     databaseHandler.updateProgram(databaseHandler.getProgramID(getCurrentlySelectedProduction()), title); // todo
 
                     // Creating update pop-up window
-                    Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item "+selectedItem+" has updated to "+title);
+                    Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item " + selectedItem + " has updated to " + title);
                     dialog.show();
                 }
                 productionTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data

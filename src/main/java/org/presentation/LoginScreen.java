@@ -8,26 +8,27 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
 import java.io.*;
 import java.util.Scanner;
+
 import org.application.LoginSystem;
 
 
 /**
  * Video brugt til FXML inspiration:
  * https://www.youtube.com/watch?v=wIuqKYhGaa8
- * */
+ */
 
 public class LoginScreen {
-    public Label noLoginButton;
-    public Button loginButton;
-    public Button closeButton;
-    public Label helpButton;
+    @FXML
+    public Label helpButton, noLoginButton;
+    @FXML
+    public Button closeButton, loginButton;
+    @FXML
     public RadioButton rememberMeButton;
     @FXML
-    private TextField usernameTextArea;
-    @FXML
-    private TextField passwordTextArea;
+    private TextField usernameTextArea, passwordTextArea;
 
     private final File file = new File("userLogin.txt");
 
@@ -40,12 +41,11 @@ public class LoginScreen {
         LoginSystem ls = new LoginSystem();
         String username = usernameTextArea.getText();
         String password = passwordTextArea.getText();
-        if (ls.login(username, password)){
-            if (ls.authorityLevel(username) > 1){
+        if (ls.login(username, password)) {
+            if (ls.authorityLevel(username) > 1) {
                 //implement the code if the user is systemadministrator
                 App.setRoot("mainMenu");
-            }
-            else {
+            } else {
                 //implement the code if the user is producer
                 App.setRoot("mainMenu");
             }
@@ -69,7 +69,7 @@ public class LoginScreen {
 
     public void rememberLogin(ActionEvent event) {
         try {
-            if(!file.exists()) {
+            if (!file.exists()) {
                 file.createNewFile();  //if the file !exist create a new one
             }
 
@@ -86,7 +86,7 @@ public class LoginScreen {
 
     public void autoFillLogin() {
         try {
-            if(file.exists()) {
+            if (file.exists()) {
                 Scanner scan = new Scanner(file);   //Use Scanner to read the File
 
                 usernameTextArea.setText(scan.nextLine());  //append the text to name field

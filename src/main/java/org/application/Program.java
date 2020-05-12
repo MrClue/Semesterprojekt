@@ -1,6 +1,7 @@
 package org.application;
 
 import javafx.beans.property.SimpleStringProperty;
+
 import java.io.Serializable;
 
 public class Program implements Serializable {
@@ -19,12 +20,12 @@ public class Program implements Serializable {
         this.description = description;
     }
 
-    public Program(int ID, String title){
+    public Program(int ID, String title) {
         this.ID = ID;
         this.title = new SimpleStringProperty(title);
     }
 
-    public Program(String title){
+    public Program(String title) {
         this.title = new SimpleStringProperty(title);
     }
 
@@ -37,7 +38,7 @@ public class Program implements Serializable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return getTitle();
     }
 }

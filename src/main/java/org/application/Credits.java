@@ -8,7 +8,7 @@ public class Credits {
     private SimpleStringProperty occupation;
     private SimpleStringProperty person;
 
-    public Credits (int programID, String occupation, String person){
+    public Credits(int programID, String occupation, String person) {
         this.productionID = new SimpleIntegerProperty(programID);
         this.occupation = new SimpleStringProperty(occupation);
         this.person = new SimpleStringProperty(person);
@@ -33,6 +33,7 @@ public class Credits {
     public int getProgramID() {
         return productionID.get();
     }
+
     @Override
     public String toString() {
         return "Credits{" +

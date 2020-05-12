@@ -21,13 +21,13 @@ public class Main {
         // adding users
 
         // getting roles
-        System.out.println("Role: "+databaseHandler.getRole("aDmIn")); // testing that getRole() ignores case-sensitivity
+        System.out.println("Role: " + databaseHandler.getRole("aDmIn")); // testing that getRole() ignores case-sensitivity
         /** TESTING END */
 
         //getProductionsCredits
 
-        for (Credits credit: databaseHandler.getCredits()) {
-            System.out.println("The database contains credit: "+credit.toString());
+        for (Credits credit : databaseHandler.getCredits()) {
+            System.out.println("The database contains credit: " + credit.toString());
         }
 
         /*System.out.println();

@@ -54,8 +54,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
             }
 
             return FXCollections.observableList(returnValue);
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
         }
@@ -71,12 +70,11 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
             stmt.setString(1, productionTitle);
 
             ResultSet sqlReturnValues = stmt.executeQuery();
-            if (!sqlReturnValues.next()){
+            if (!sqlReturnValues.next()) {
                 return -1;
             }
             return sqlReturnValues.getInt(1);
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             return -1;
         }
@@ -92,8 +90,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
             stmt.setString(1, program.getTitle());
             stmt.execute();
             return true;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -111,8 +108,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
             statement.setInt(2, program_ID);
             statement.execute();
             return true;
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
         }
@@ -128,8 +124,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
             stmt.setInt(1, program_ID);
             stmt.execute();
             return true;
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
         }
@@ -149,8 +144,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
                 ));
             }
             return FXCollections.observableList(returnValue);
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
         }
@@ -158,14 +152,14 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
 
     @Override
     public List<Credits> getProgramCredits(int program_id) {
-            List<Credits> listOfCredits = getCredits();
-            List<Credits> newListOfCredits = new ArrayList<>();
-        for (Credits credit: listOfCredits) {
-            if (credit.getProgramID() == program_id){
+        List<Credits> listOfCredits = getCredits();
+        List<Credits> newListOfCredits = new ArrayList<>();
+        for (Credits credit : listOfCredits) {
+            if (credit.getProgramID() == program_id) {
                 newListOfCredits.add(credit);
             }
         }
-            return FXCollections.observableList(newListOfCredits);
+        return FXCollections.observableList(newListOfCredits);
     }
 
     @Override
@@ -183,14 +177,13 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
             stmt.setString(3, person);
 
             ResultSet sqlReturnValues = stmt.executeQuery();
-               if (sqlReturnValues.next()){
-                   value = sqlReturnValues.getInt(1);
-               }
+            if (sqlReturnValues.next()) {
+                value = sqlReturnValues.getInt(1);
+            }
 
 
             return value;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return -1;
         }
@@ -208,8 +201,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
             stmt.setString(3, credits.getPerson());
             stmt.execute();
             return true;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -243,7 +235,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     }
 
     @Override
-    public boolean deleteCredit(int programID, String occupation, String person){
+    public boolean deleteCredit(int programID, String occupation, String person) {
         try {
             PreparedStatement stmt = connection.prepareStatement(
                     "DELETE FROM credits " +
@@ -256,13 +248,13 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
             stmt.setString(3, person);
             stmt.execute();
             return true;
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("No matching credit found - see deleteCredit()");
             ex.printStackTrace();
             return false;
         }
     }
+
     @Override
     public boolean deleteCredits() {
         return false;

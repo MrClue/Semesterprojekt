@@ -15,9 +15,10 @@ public class Role {
 
     private String password = null;
     private int authorityLevel;
-    private int ID ;
+    private int ID;
 
-    public Role() {}
+    public Role() {
+    }
 
     public Role(String username, String password, int authorityLevel, int ID) {
         this.username = username;
@@ -30,7 +31,7 @@ public class Role {
         return this.username;
     }
 
-    public void setName(String name)  {
+    public void setName(String name) {
         this.username = name;
     }
 
