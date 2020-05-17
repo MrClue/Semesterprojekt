@@ -1,3 +1,10 @@
+-- lets make sure everyone has he same password
+ALTER USER postgres WITH PASSWORD 'password';
+
+-- now lets create the database used for this project
+CREATE DATABASE ecms;
+
+-- lets create the tables used by the application
 CREATE TABLE Program (
   ID SERIAL PRIMARY KEY,
   ProgramTitle VARCHAR(50) NOT NULL

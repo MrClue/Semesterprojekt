@@ -9,7 +9,10 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        /** TESTING START */
+        /** TESTING START
+         * (alle komandoer indtil "TESTING END" skal ikke med i den endelige version).
+         */
+
         DatabaseHandler databaseHandler;
         databaseHandler = DatabaseHandler.getInstance();
 
@@ -22,7 +25,6 @@ public class Main {
 
         // getting roles
         System.out.println("Role: " + databaseHandler.getRole("aDmIn")); // testing that getRole() ignores case-sensitivity
-        /** TESTING END */
 
         //getProductionsCredits
 
@@ -42,6 +44,8 @@ public class Main {
 
         //Updating credit
         //databaseHandler.updateCredit(20,"retæjreæt", "werwerwer");
+
+        /** TESTING END */
 
         // starting the application
         App.launcher(args);
