@@ -1,23 +1,17 @@
 package org.presentation;
 
 import javafx.application.Application;
-import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.application.Controller;
-import org.application.Program;
+import org.application.HelpPopUp;
 import org.data.DatabaseHandler;
 
 import java.io.IOException;
-import java.util.*;
 
 /**
  * Project: JavaFX Application
@@ -27,7 +21,7 @@ import java.util.*;
 public class App extends Application {
 
     private static Scene scene;
-    public static HelpPopUp HelpPopUp;
+    public static org.application.HelpPopUp HelpPopUp;
 
     private double xOffset = 0;
     private double yOffset = 0;

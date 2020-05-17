@@ -12,7 +12,9 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.Scanner;
 
+import org.application.Controller;
 import org.application.LoginSystem;
+import org.data.DatabaseHandler;
 
 
 /**
@@ -31,6 +33,7 @@ public class LoginScreen {
     private TextField usernameTextArea, passwordTextArea;
 
     private final File file = new File("userLogin.txt");
+    private Controller controller = Controller.getInstance();
 
     public void initialize() {
         autoFillLogin();
@@ -58,9 +61,12 @@ public class LoginScreen {
         App.setRoot("user_mainMenu");
     }
 
-    public void closeButtonAction(ActionEvent actionEvent) {
+    /*public void closeButtonAction(ActionEvent actionEvent) {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
+    }*/
+    public void closeButtonAction(ActionEvent actionEvent){
+        controller.closeButtonAction(closeButton);
     }
 
     public void switchToHelpPopup(MouseEvent actionEvent) {
