@@ -267,7 +267,7 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
                     "SELECT * FROM login " +
                             "WHERE username = ?"
             );
-            stmt.setString(1, username.toLowerCase()); // all usernames are in lowercase in database
+            stmt.setString(1, username); // all usernames are in lowercase in database
             ResultSet sqlReturnValues = stmt.executeQuery();
             if (!sqlReturnValues.next()) {
                 return null;

@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.application.Controller;
 import org.application.Credits;
 import org.application.Program;
 import org.data.DatabaseHandler;
@@ -18,7 +19,6 @@ import java.io.Serializable;
 
 /**
  * ToDO List:
- * Make creditsTable only show relevant credits (those whose ID is similar to the selected production name).
  * Make it possible to type Production title and Credit information at the same time.
  * Make a search bar for the Credit table.
  * Fix errors and optimize logic.
@@ -37,6 +37,7 @@ public class MainMenu implements Serializable {
     public TableColumn<Credits, String> occupation, person;
 
     private DatabaseHandler databaseHandler = DatabaseHandler.getInstance();
+    private Controller controller = Controller.getInstance();
 
     public void initialize() {
         productionTitle.setCellValueFactory(new PropertyValueFactory<Program, String>("title"));
@@ -71,98 +72,52 @@ public class MainMenu implements Serializable {
         if (event.getSource() == addButton) {
             /** Lets check if something is actually written inside the "production title" textfield... */
             if (titleDefined && !occupationDefined || titleDefined && !personDefined) {
-                // adding to database if production with given title doesnt exists
-                if (databaseHandler.getProgramID(title) < 0) {
-                    databaseHandler.insertProgram(new Program(title));
-                    System.out.println("The production '" + title + "' added to database!");
-                } else {
-                    System.out.println("The production already exists!");
-                }
-                productionTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
+                controller.addProgram(title, productionTable);
                 clearText();
-
             }
             // adding credits for the selected production
-            else if (getCurrentlySelectedProduction() != null /*selectedProduction != -1*/ && occupationDefined && personDefined) {
-                // checking if credit for selected production doesnt exists in the database
-                if (databaseHandler.getCreditID(databaseHandler.getProgramID(getCurrentlySelectedProduction()), occupation, person) < 0) {
-                    databaseHandler.insertCredit(new Credits(databaseHandler.getProgramID(getCurrentlySelectedProduction()), occupation, person));
-                } else {
-                    System.out.println("Credit already exists in database");
-                }
-
-                creditTable.setItems((ObservableList<Credits>) databaseHandler.getProgramCredits(databaseHandler.getProgramID(getCurrentlySelectedProduction()))); // refreshing data
+            else if (getCurrentlySelectedProduction() != null && occupationDefined && personDefined) {
+                controller.addCredits(getCurrentlySelectedProduction(), occupation, person, creditTable);
                 clearText();
-
             } else {
                 System.out.println("Something went wrong");
             }
         }
         /**
          *  Button "DELETE"
-         *  todo: Af en eller anden grund kan man kun slette credits...
          */
         else if (event.getSource() == deleteButton) {
             try {
                 // make sure credit table is empty
                 if (creditTable.getItems().isEmpty()) {
                     // now lets delete the selected program
-                    if (getCurrentlySelectedProduction() != null) {
-                        // extra check to make sure the production to be deleted ACTUALLY exists in database
-                        if (databaseHandler.getProgramID(title) > 0) {
-                            databaseHandler.deleteProgram(databaseHandler.getProgramID(title)); //ToDo: call the deleteProgram() method from DatabaseHandler
-                            System.out.println("Production removed.");
-                        } else {
-                            System.out.println("The production: '" + title + "' is not a valid production.");
-                        }
-                        productionTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
-                        titleField.clear();
-                    } else {
-                        System.out.println("No production selected!");
-                    }
+                    controller.deleteSelectedProgram(getCurrentlySelectedProduction(), title, productionTable, titleField);
                 } else {
                     // we must delete the credits first!
                     if (getCurrentlySelectedCreditOccupation() != null && getCurrentlySelectedCreditPerson() != null) {
-                        databaseHandler.deleteCredit(databaseHandler.getProgramID(title), occupation, person);
-                        creditTable.setItems((ObservableList<Credits>) databaseHandler.getProgramCredits(databaseHandler.getProgramID(getCurrentlySelectedProduction()))); // refreshing data
+                        controller.deleteSelectedCredit(getCurrentlySelectedProduction(), title, occupation, person, creditTable);
                         clearText();
                     } else {
                         System.out.println("No credit selected!");
                     }
+
                 }
             } catch (Exception e) {
                 System.out.println("IndexOutOfBoundsException");
                 System.out.println("(!) Always delete the associated credits first!");
-                //e.printStackTrace();
+                e.printStackTrace();
             }
         }
         /**
          *  Button "UPDATE"
          */
         else if (event.getSource() == updateButton) {
-            if (getCurrentlySelectedProduction() != null /*selectedProduction != -1*/ && !title.equals("")) {
-                String selectedItem = this.productionTable.getSelectionModel().getSelectedItem().toString();
-                //Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item "+selectedItem+" has updated to "+title);
-                //dialog.show();
+            // updating selected program
+            controller.updateSelectedProgram(/*getCurrentlySelectedProduction(),*/ title, productionTable, creditTable);
+            clearText();
 
-                // We will first check if the new production name isn't already defined in the database.
-                // If the name is not already used, we will proceed to update the production title!
-                if (databaseHandler.getProgramID(title) > 0) {
-                    System.out.println("The production '" + title + "' is already in the database!\n"
-                            + "Choose another production title...");
-                } else {
-                    //todo: We need to update the selected production
-                    //      and then we refresh the table.
-                    databaseHandler.updateProgram(databaseHandler.getProgramID(getCurrentlySelectedProduction()), title); // todo
+            // todo: update selected credit
 
-                    // Creating update pop-up window
-                    Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item " + selectedItem + " has updated to " + title);
-                    dialog.show();
-                }
-                productionTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
-                clearText();
-                productionTable.refresh(); // maybe useless???
-            }
         }
     }
 
@@ -213,7 +168,7 @@ public class MainMenu implements Serializable {
         int index = productionTable.getSelectionModel().getSelectedIndex();
         Program program = productionTable.getItems().get(index);
         creditTable.setItems((ObservableList<Credits>) databaseHandler.getProgramCredits(program.getID())); // refresh credit data based on selected program
-        System.out.println(program.getTitle());
+        System.out.println("Program: '" + program.getTitle() + "' is selected");
         return program.getTitle();
     }
 
@@ -235,7 +190,7 @@ public class MainMenu implements Serializable {
         occupationField.clear();
     }
 
-    public void signOut(ActionEvent actionEvent) throws IOException {
+    public void signOut(ActionEvent actionEvent) {
         try {
             App.setRoot("loginScreen");
             //throw new UnsupportedOperationException("Not implemented");
@@ -246,11 +201,18 @@ public class MainMenu implements Serializable {
     }
 
     public void closeButtonAction(ActionEvent actionEvent) {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
+        controller.closeButtonAction(closeButton);
     }
 
     public void switchToHelpPopup(ActionEvent actionEvent) {
         App.HelpPopUp.display();
+    }
+
+    public void refreshPrograms(){
+        productionTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
+    }
+
+    public void refreshCredits(){
+        creditTable.setItems((ObservableList<Credits>) databaseHandler.getProgramCredits(databaseHandler.getProgramID(getCurrentlySelectedProduction()))); // refreshing data
     }
 }
