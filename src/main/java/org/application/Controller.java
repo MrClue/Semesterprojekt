@@ -4,11 +4,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.data.DatabaseHandler;
-import org.w3c.dom.Text;
 
 import java.io.*;
 import java.util.Scanner;
@@ -212,7 +209,35 @@ public class Controller {
         programTable.setItems(sortedList);
     }
 
+    public void creditSearchField(TableView<Program> programTable, TableView<Credits> creditTable, TextField searchCredits) {
+        FilteredList<Credits> filteredList = new FilteredList<>((ObservableList<Credits>) databaseHandler.getProgramCredits(databaseHandler.getProgramID(getSelectedProduction(programTable, creditTable))), b -> true);
+        searchCredits.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(credits -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String Filter = newValue.toLowerCase();
+
+                if (credits.getOccupation().toLowerCase().contains(Filter) || credits.getPerson().toLowerCase().contains(Filter)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        SortedList<Credits> sortedList = new SortedList<>(filteredList);
+        sortedList.comparatorProperty().bind(creditTable.comparatorProperty());
+        creditTable.setItems(sortedList);
+    }
+
     public void refreshProgramData(TableView<Program> programTable){
         programTable.setItems((ObservableList<Program>) databaseHandler.getPrograms());
+    }
+
+    public void refreshCreditData(TableView<Program> programTable, TableView<Credits> creditTable) {
+        int index = programTable.getSelectionModel().getSelectedIndex();
+        Program program = programTable.getItems().get(index);
+        creditTable.setItems((ObservableList<Credits>) databaseHandler.getProgramCredits(program.getID())); // refresh credit data based on selected program
     }
 }

@@ -6,27 +6,30 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="rightSide" stylesheets="@../../ECMS.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.presentation.User_mainMenu">
     <children>
-        <TextField fx:id="searchProductions" layoutX="14.0" layoutY="108.0" onKeyPressed="#searchFieldProduction" prefHeight="30.0" prefWidth="300.0" promptText="Name" />
-      <Button fx:id="loginButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToLoginScreen" styleClass="loginButton" text="Login" />
-        <Button fx:id="helpButton" layoutX="63.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToHelpPopup" styleClass="loginButton" text="Help" />
+        <TextField fx:id="searchProductions" layoutX="14.0" layoutY="108.0" onKeyPressed="#programSearchField" prefHeight="30.0" prefWidth="300.0" promptText="Name" />
+      <Button fx:id="loginButton" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchToLoginScreen" prefHeight="25.0" prefWidth="62.0" styleClass="loginButton" text="Login" />
+        <Button fx:id="helpButton" layoutX="78.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchToHelpPopup" prefHeight="25.0" prefWidth="62.0" styleClass="loginButton" text="Help" />
         <Label layoutX="14.0" layoutY="86.0" prefHeight="18.0" prefWidth="300.0" text="Search for productions:">
 
             <font>
                 <Font name="Ebrima Bold" size="14.0" />
             </font></Label>
-        <ListView fx:id="test" layoutX="14.0" layoutY="143.0" prefHeight="450.0" prefWidth="300.0" />
+      <TableView fx:id="programTable" layoutX="14.0" layoutY="143.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#selectedProductionEvent" prefHeight="450.0" prefWidth="300.0">
+        <columns>
+          <TableColumn fx:id="programTitle" prefWidth="299.0" text="Production Title" />
+        </columns>
+      </TableView>
         <Button fx:id="closeButton" layoutX="775.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="20.0" prefWidth="25.0" styleClass="closeButton" text="X">
             <font>
                 <Font name="Eras Bold ITC" size="12.0" />
             </font></Button>
         <TableView fx:id="creditTable" editable="true" layoutX="332.0" layoutY="143.0" prefHeight="450.0" prefWidth="450.0">
             <columns>
-                <TableColumn fx:id="title" prefWidth="150.0" text="Title" />
-                <TableColumn fx:id="occupation" minWidth="0.0" prefWidth="150.0" text="Occupation" />
-                <TableColumn fx:id="person" minWidth="-1.0" prefWidth="150.0" text="Person" />
+                <TableColumn fx:id="occupation" minWidth="0.0" prefWidth="225.0" text="Occupation" />
+                <TableColumn fx:id="person" minWidth="-1.0" prefWidth="225.0" text="Person" />
             </columns>
         </TableView>
-      <TextField fx:id="searchCredits" layoutX="332.0" layoutY="108.0" onKeyPressed="#searchField" prefHeight="30.0" prefWidth="450.0" promptText="Name" />
+      <TextField fx:id="searchCredits" layoutX="332.0" layoutY="108.0" onKeyPressed="#creditSearchField" prefHeight="30.0" prefWidth="450.0" promptText="Name" />
       <Label layoutX="332.0" layoutY="86.0" prefHeight="18.0" prefWidth="450.0" text="Search for credits:">
          <font>
             <Font name="Ebrima Bold" size="14.0" />

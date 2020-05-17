@@ -6,52 +6,50 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.application.Controller;
 import org.application.Credits;
+import org.application.Program;
 
 import java.io.IOException;
 
 public class User_mainMenu {
     public Button closeButton, loginButton, helpButton;
     public TextField searchProductions, searchCredits;
+
+    // production table
+    public TableView<Program> programTable;
+    public TableColumn<Program, String> programTitle;
+
+    // credits table
     public TableView<Credits> creditTable;
-    public TableColumn<Credits, String> title, occupation, person;
-    public ListView test;
+    public TableColumn<Credits, String> occupation, person;
 
-    final ObservableList<Credits> credits = FXCollections.observableArrayList();
+    // get Controller instance
+    private Controller controller = Controller.getInstance();
 
-    public void searchFieldProduction(KeyEvent event) {
-//        FilteredList<Credits> filteredList = new FilteredList<>(credits, b -> true);
-//        searchProductions.textProperty().addListener((observable, oldValue, newValue) -> {
-//            filteredList.setPredicate(credits -> {
-//                if (newValue == null || newValue.isEmpty()) {
-//                    return true;
-//                }
-//
-//                String Filter = newValue.toLowerCase();
-//
-//                if (credits.getTitle().toLowerCase().indexOf(Filter) != -1) {
-//                    return true;
-//                }
-//                /** føler at det er useless at lave en generel søgning efter occupation */
-//                /*else if (credits.getOccupation().toLowerCase().indexOf(Filter) != -1) {
-//                    return true;
-//                }*/ else if (credits.getPerson().toLowerCase().indexOf(Filter) != -1) {
-//                    return true;
-//                } else {
-//                    return false;
-//                }
-//            });
-//        });
-//        SortedList<Credits> sortedList = new SortedList<>(filteredList);
-//        sortedList.comparatorProperty().bind(creditTable.comparatorProperty());
-//        creditTable.setItems(sortedList);
+    public void initialize() {
+        programTitle.setCellValueFactory(new PropertyValueFactory<Program, String>("title"));
+        occupation.setCellValueFactory(new PropertyValueFactory<Credits, String>("occupation"));
+        person.setCellValueFactory(new PropertyValueFactory<Credits, String>("person"));
+
+        // retrieving production data from database
+        controller.refreshProgramData(programTable);
+    }
+
+    public void programSearchField(KeyEvent event) {
+        controller.programSearchField(programTable, searchProductions);
+    }
+
+    public void creditSearchField(KeyEvent keyEvent) {
+        controller.creditSearchField(programTable, creditTable, searchCredits);
     }
 
     public void closeButtonAction(ActionEvent actionEvent) {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
+        controller.closeButtonAction(closeButton);
     }
 
     public void switchToLoginScreen(ActionEvent actionEvent) throws IOException {
@@ -62,11 +60,7 @@ public class User_mainMenu {
         App.HelpPopUp.display();
     }
 
-    public void searchField(KeyEvent keyEvent) {
-        try {
-            throw new UnsupportedOperationException("Not implemented");
-        } catch (Exception ex) {
-            System.out.println("Action not implemented.");
-        }
+    public void selectedProductionEvent(MouseEvent mouseEvent) {
+        controller.refreshCreditData(programTable, creditTable);
     }
 }
