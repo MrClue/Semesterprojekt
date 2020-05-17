@@ -7,12 +7,11 @@ import java.io.Serializable;
 public class Program implements Serializable {
     private SimpleStringProperty title;
     private String description;
+    private int ID;
 
     public int getID() {
         return ID;
     }
-
-    private int ID;
 
     public Program(int ID, String title, String description) {
         this.ID = ID;

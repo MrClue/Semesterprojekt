@@ -1,10 +1,15 @@
 package org.application;
 
+import javafx.event.ActionEvent;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import org.data.DatabaseHandler;
 
+import java.io.*;
 import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class LoginSystem {
 
@@ -29,4 +34,5 @@ public class LoginSystem {
         Role role = databaseHandler.getRole(username);
         return role.getAuthLvl();
     }
+
 }
