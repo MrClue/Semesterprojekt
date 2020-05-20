@@ -94,7 +94,8 @@ public class Controller {
             System.out.println("The production already exists!");
         }
 
-        programTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
+        refreshProgramData(programTable);
+
     }
 
     public void addCredits(TableView<Program> programTable, String occupation, String person, TableView<Credits> creditTable) {
@@ -110,7 +111,7 @@ public class Controller {
             }
         }
 
-        creditTable.setItems((ObservableList<Credits>) databaseHandler.getProgramCredits(databaseHandler.getProgramID(getSelectedProduction(programTable, creditTable)))); // refreshing data
+        refreshCreditData(programTable, creditTable);
     }
 
     public void deleteSelectedProgram(TableView<Program> programTable, TableView<Credits> creditTable, String title, TextField titleField){
@@ -122,7 +123,8 @@ public class Controller {
             } else {
                 System.out.println("The production: '" + title + "' is not a valid production.");
             }
-            programTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
+
+            refreshProgramData(programTable);
             titleField.clear();
         } else {
             System.out.println("No production selected!");
@@ -136,7 +138,7 @@ public class Controller {
             System.out.println("No credit selected!");
         }
 
-        creditTable.setItems((ObservableList<Credits>) databaseHandler.getProgramCredits(databaseHandler.getProgramID(getSelectedProduction(programTable, creditTable)))); // refreshing data
+        refreshCreditData(programTable, creditTable);
     }
 
     public void updateSelectedProgram(TableView<Program> programTable, TableView<Credits> creditTable, String title) {
@@ -155,7 +157,8 @@ public class Controller {
                 Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item " + selectedItem + " has updated to " + title);
                 dialog.show();
             }
-            programTable.setItems((ObservableList<Program>) databaseHandler.getPrograms()); // refreshing data
+
+            refreshProgramData(programTable);
             //clearText();
             programTable.refresh(); // maybe useless???
         }
@@ -164,7 +167,7 @@ public class Controller {
     public String getSelectedProduction(TableView<Program> programTable, TableView<Credits> creditTable) {
         int index = programTable.getSelectionModel().getSelectedIndex();
         Program program = programTable.getItems().get(index);
-        creditTable.setItems((ObservableList<Credits>) databaseHandler.getProgramCredits(program.getID())); // refresh credit data based on selected program
+        refreshCreditData(programTable, creditTable);
         System.out.println("Program: '" + program.getTitle() + "' is selected");
         return program.getTitle();
     }
@@ -240,4 +243,6 @@ public class Controller {
         Program program = programTable.getItems().get(index);
         creditTable.setItems((ObservableList<Credits>) databaseHandler.getProgramCredits(program.getID())); // refresh credit data based on selected program
     }
+
+
 }
