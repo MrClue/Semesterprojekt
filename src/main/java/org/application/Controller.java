@@ -32,7 +32,7 @@ public class Controller {
      * -----------------------------------------------------------------------------------------------------------------
      * LOGIN SCREEN - (LOGIC)
      * -----------------------------------------------------------------------------------------------------------------
-     * */
+     */
     // remember me functionality:
     public void rememberLogin(TextField usernameTextArea, TextField passwordTextArea) {
         try {
@@ -72,10 +72,9 @@ public class Controller {
      * -----------------------------------------------------------------------------------------------------------------
      * MAIN MENU - (LOGIC)
      * -----------------------------------------------------------------------------------------------------------------
-     * */
+     */
 
     // Window Action Events
-
     public void closeButtonAction(Button button) {
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
@@ -102,7 +101,7 @@ public class Controller {
         assert occupation != null;
         assert person != null;
 
-        if (getSelectedProduction(programTable, creditTable) != null){
+        if (getSelectedProduction(programTable, creditTable) != null) {
             // checking if credit for selected production doesnt exists in the database
             if (databaseHandler.getCreditID(databaseHandler.getProgramID(getSelectedProduction(programTable, creditTable)), occupation, person) < 0) {
                 databaseHandler.insertCredit(new Credits(databaseHandler.getProgramID(getSelectedProduction(programTable, creditTable)), occupation, person));
@@ -114,7 +113,7 @@ public class Controller {
         refreshCreditData(programTable, creditTable);
     }
 
-    public void deleteSelectedProgram(TableView<Program> programTable, TableView<Credits> creditTable, String title, TextField titleField){
+    public void deleteSelectedProgram(TableView<Program> programTable, TableView<Credits> creditTable, String title, TextField titleField) {
         if (getSelectedProduction(programTable, creditTable) != null) {
             // extra check to make sure the production to be deleted ACTUALLY exists in database
             if (databaseHandler.getProgramID(title) > 0) {
@@ -131,8 +130,8 @@ public class Controller {
         }
     }
 
-    public void deleteSelectedCredit(TableView<Program> programTable, TableView<Credits> creditTable, String title, String occupation, String person){
-        if (getSelectedOccupation(creditTable) != null && getSelectedPerson(creditTable) != null){
+    public void deleteSelectedCredit(TableView<Program> programTable, TableView<Credits> creditTable, String title, String occupation, String person) {
+        if (getSelectedOccupation(creditTable) != null && getSelectedPerson(creditTable) != null) {
             databaseHandler.deleteCredit(databaseHandler.getProgramID(title), occupation, person);
         } else {
             System.out.println("No credit selected!");
@@ -176,15 +175,19 @@ public class Controller {
                     databaseHandler.updateCredit(creditID, occupation, person);
 
                     // Creating update pop-up window
-                    Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item " + selectedItem + " has updated to " + title + ", "+occupation+", "+person);
+                    Dialog dialog = new Alert(Alert.AlertType.INFORMATION,
+                            "The item: " + selectedItem +
+                                    "\n" + "has updated to: " +
+                                    "\n" + title + ", " + occupation + ", " + person
+                    );
                     dialog.show();
                 } else {
-                    System.out.println("The credit '" + title + ": " + occupation +", " + person +"' already exist!");
+                    System.out.println("The credit '" + title + ": " + occupation + ", " + person + "' already exist!");
                 }
                 refreshCreditData(programTable, creditTable);
                 creditTable.refresh();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Something went wrong!");
         }
     }
@@ -259,7 +262,7 @@ public class Controller {
         creditTable.setItems(sortedList);
     }
 
-    public void refreshProgramData(TableView<Program> programTable){
+    public void refreshProgramData(TableView<Program> programTable) {
         programTable.setItems((ObservableList<Program>) databaseHandler.getPrograms());
     }
 
