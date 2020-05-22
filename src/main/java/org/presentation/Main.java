@@ -25,6 +25,8 @@ public class Main {
             System.out.println("The database contains credit: " + credit.toString());
         }
 
+        System.out.println(databaseHandler.getCreditID(databaseHandler.getProgramID("Batman"), "Producer", "Adam"));
+
         /**
          * -------------------------------------------------------------------------------------------------------------
          * TESTING END

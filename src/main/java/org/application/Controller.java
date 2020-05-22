@@ -165,21 +165,27 @@ public class Controller {
     }
 
     public void updateSelectedCredit(TableView<Program> programTable, TableView<Credits> creditTable, String title, String occupation, String person) {
-        if (getSelectedOccupation(creditTable) != null && !occupation.equals("") && getSelectedPerson(creditTable) != null && !person.equals("")) {
-            String selectedItem = creditTable.getSelectionModel().getSelectedItem().toString();
+        try {
+            if (getSelectedOccupation(creditTable) != null && !occupation.equals("") && getSelectedPerson(creditTable) != null && !person.equals("")) {
+                String selectedItem = creditTable.getSelectionModel().getSelectedItem().toString();
 
-            // Checking if the credit details doesnt already exist in database
-            if (databaseHandler.getCreditID(databaseHandler.getProgramID(title), occupation, person) > 0) {
-                System.out.println("The credit '" + title + ": " + occupation +", " + person +"' is already in the database!");
-            } else {
-                databaseHandler.updateCredit(databaseHandler.getCreditID(databaseHandler.getProgramID(title), occupation, person), occupation, person);
+                //int creditID = databaseHandler.getCreditID(databaseHandler.getProgramID(title), occupation, person);
+                int creditID = databaseHandler.getCreditID(databaseHandler.getProgramID(title), getSelectedOccupation(creditTable), getSelectedPerson(creditTable));
+                // Checking if the credit details doesnt already exist in database
+                if (creditID > 0) {
+                    databaseHandler.updateCredit(creditID, occupation, person);
 
-                // Creating update pop-up window
-                Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item " + selectedItem + " has updated to " + title + ", "+occupation+", "+person);
-                dialog.show();
+                    // Creating update pop-up window
+                    Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item " + selectedItem + " has updated to " + title + ", "+occupation+", "+person);
+                    dialog.show();
+                } else {
+                    System.out.println("The credit '" + title + ": " + occupation +", " + person +"' already exist!");
+                }
+                refreshCreditData(programTable, creditTable);
+                creditTable.refresh();
             }
-            refreshCreditData(programTable, creditTable);
-            creditTable.refresh();
+        } catch (Exception e){
+            System.out.println("Something went wrong!");
         }
     }
 
