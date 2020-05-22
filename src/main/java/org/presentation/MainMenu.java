@@ -106,12 +106,15 @@ public class MainMenu implements Serializable {
          */
         else if (event.getSource() == updateButton) {
             // updating selected program
-            controller.updateSelectedProgram(programTable, creditTable, title);
-            controller.clearText(titleField, occupationField, personField);
-
-            // updating selected credit
-            // todo: update selected credit
-
+            if (titleDefined && !occupationDefined && !personDefined){
+                controller.updateSelectedProgram(programTable, creditTable, title);
+                controller.clearText(titleField, occupationField, personField);
+            } else if (titleDefined && occupationDefined && personDefined){
+                // updating selected credit
+                // todo: update selected credit
+                controller.updateSelectedCredit(programTable, creditTable, title, occupation, person);
+                controller.clearText(titleField, occupationField, personField);
+            }
         }
     }
 
