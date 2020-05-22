@@ -10,7 +10,6 @@ CREATE TABLE Program (
   ProgramTitle VARCHAR(50) NOT NULL
 );
 
--- todo: (Program_ID + Occupation + Person) skal være en combined key (altså noget som er unique).
 CREATE TABLE Credits (
     ID SERIAL PRIMARY KEY,
     Program_ID INTEGER NOT NULL REFERENCES Program(ID),

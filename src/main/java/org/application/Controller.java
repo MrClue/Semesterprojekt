@@ -164,6 +164,25 @@ public class Controller {
         }
     }
 
+    public void updateSelectedCredit(TableView<Program> programTable, TableView<Credits> creditTable, String title, String occupation, String person) {
+        if (getSelectedOccupation(creditTable) != null && !occupation.equals("") && getSelectedPerson(creditTable) != null && !person.equals("")) {
+            String selectedItem = creditTable.getSelectionModel().getSelectedItem().toString();
+
+            // Checking if the credit details doesnt already exist in database
+            if (databaseHandler.getCreditID(databaseHandler.getProgramID(title), occupation, person) > 0) {
+                System.out.println("The credit '" + title + ": " + occupation +", " + person +"' is already in the database!");
+            } else {
+                databaseHandler.updateCredit(databaseHandler.getCreditID(databaseHandler.getProgramID(title), occupation, person), occupation, person);
+
+                // Creating update pop-up window
+                Dialog dialog = new Alert(Alert.AlertType.INFORMATION, "The item " + selectedItem + " has updated to " + title + ", "+occupation+", "+person);
+                dialog.show();
+            }
+            refreshCreditData(programTable, creditTable);
+            creditTable.refresh();
+        }
+    }
+
     public String getSelectedProduction(TableView<Program> programTable, TableView<Credits> creditTable) {
         int index = programTable.getSelectionModel().getSelectedIndex();
         Program program = programTable.getItems().get(index);

@@ -52,7 +52,6 @@ public class LoginScreen {
                 App.setRoot("mainMenu");
             }
         }
-
     }
 
     @FXML
