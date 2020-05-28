@@ -24,6 +24,4 @@ public interface IDatabaseHandler {
     public boolean updateCredit(int creditID, String occupation, String person);
 
     public boolean deleteCredit(int programID, String occupation, String person);
-
-    public boolean deleteCredits();
 }

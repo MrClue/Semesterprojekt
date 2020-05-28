@@ -1,15 +1,10 @@
 package org.presentation;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import org.application.Controller;
 import org.application.Credits;
 import org.application.Program;
@@ -57,7 +52,7 @@ public class User_mainMenu {
     }
 
     public void switchToHelpPopup(ActionEvent actionEvent) {
-        App.HelpPopUp.display();
+        App.helpPopUp.display();
     }
 
     public void selectedProductionEvent(MouseEvent mouseEvent) {

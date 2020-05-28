@@ -13,12 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHandler implements IDatabaseHandler, ILogin {
+
     private static DatabaseHandler instance;
-    private String url = "localhost";
-    private int port = 5432;
-    private String databaseName = "ecms";
-    private String username = "postgres";
-    private String password = "password";
+    private final String url = "localhost";
+    private final int port = 5432;
+    private final String databaseName = "ecms";
+    private final String username = "postgres";
+    private final String password = "password";
     private Connection connection = null;
 
     private DatabaseHandler() {
@@ -181,7 +182,6 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
                 value = sqlReturnValues.getInt(1);
             }
 
-
             return value;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -256,11 +256,6 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
     }
 
     @Override
-    public boolean deleteCredits() {
-        return false;
-    }
-
-    @Override
     public Role getRole(String username) {
         try {
             PreparedStatement stmt = connection.prepareStatement(
@@ -284,16 +279,4 @@ public class DatabaseHandler implements IDatabaseHandler, ILogin {
         }
     }
 
-    /*public boolean createUser(){
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (name, cpr) VALUES (?,?)");
-            preparedStatement.setString(1, "kalb");
-            preparedStatement.setString(2, "1111111111");
-            preparedStatement.execute();
-            return true;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return false;
-        }
-    }*/
 }

@@ -12,14 +12,12 @@ import java.util.Scanner;
 
 public class Controller {
 
+    // Controller
+    private static Controller instance;
     // Storing login information
     private final File file = new File("userLogin.txt");
-
     // DatabaseHandler instance
-    private DatabaseHandler databaseHandler = DatabaseHandler.getInstance();
-
-    //Controller
-    private static Controller instance;
+    private final DatabaseHandler databaseHandler = DatabaseHandler.getInstance();
 
     public static Controller getInstance() {
         if (instance == null) {
@@ -37,7 +35,7 @@ public class Controller {
     public void rememberLogin(TextField usernameTextArea, TextField passwordTextArea) {
         try {
             if (!file.exists()) {
-                file.createNewFile();  //if the file !exist create a new one
+                file.createNewFile(); // if the file !exist create a new one
             }
 
             BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsolutePath()));
@@ -81,7 +79,6 @@ public class Controller {
     }
 
     // Logic for Button events
-
     public void addProgram(String title, TableView<Program> programTable) {
         assert title != null;
 
@@ -158,8 +155,6 @@ public class Controller {
             }
 
             refreshProgramData(programTable);
-            //clearText();
-            programTable.refresh(); // maybe useless???
         }
     }
 
@@ -168,7 +163,6 @@ public class Controller {
             if (getSelectedOccupation(creditTable) != null && !occupation.equals("") && getSelectedPerson(creditTable) != null && !person.equals("")) {
                 String selectedItem = creditTable.getSelectionModel().getSelectedItem().toString();
 
-                //int creditID = databaseHandler.getCreditID(databaseHandler.getProgramID(title), occupation, person);
                 int creditID = databaseHandler.getCreditID(databaseHandler.getProgramID(title), getSelectedOccupation(creditTable), getSelectedPerson(creditTable));
                 // Checking if the credit details doesnt already exist in database
                 if (creditID > 0) {
@@ -228,11 +222,7 @@ public class Controller {
 
                 String Filter = newValue.toLowerCase();
 
-                if (program.getTitle().toLowerCase().contains(Filter)) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return program.getTitle().toLowerCase().contains(Filter);
             });
         });
         SortedList<Program> sortedList = new SortedList<>(filteredList);
@@ -250,11 +240,7 @@ public class Controller {
 
                 String Filter = newValue.toLowerCase();
 
-                if (credits.getOccupation().toLowerCase().contains(Filter) || credits.getPerson().toLowerCase().contains(Filter)) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return credits.getOccupation().toLowerCase().contains(Filter) || credits.getPerson().toLowerCase().contains(Filter);
             });
         });
         SortedList<Credits> sortedList = new SortedList<>(filteredList);

@@ -1,7 +1,9 @@
 package org.application;
 
 public class Role {
-    private String username = null;
+    private final String username, password;
+    private final int authorityLevel;
+    private final int ID;
 
     @Override
     public String toString() {
@@ -11,13 +13,6 @@ public class Role {
                 ", authorityLevel=" + authorityLevel +
                 ", ID=" + ID +
                 '}';
-    }
-
-    private String password = null;
-    private int authorityLevel;
-    private int ID;
-
-    public Role() {
     }
 
     public Role(String username, String password, int authorityLevel, int ID) {
@@ -31,32 +26,12 @@ public class Role {
         return this.username;
     }
 
-    public void setName(String name) {
-        this.username = name;
-    }
-
     public String getPassword() {
         return this.password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public int getAuthLvl() {
         return this.authorityLevel;
-    }
-
-    public void setAuthLvl(int authLevel) {
-        this.authorityLevel = authLevel;
-    }
-
-    public int getID() {
-        return this.ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
     }
 
 }
