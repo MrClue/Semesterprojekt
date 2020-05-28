@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -22,7 +23,11 @@
       <Button fx:id="closeButton" layoutX="775.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="20.0" prefWidth="25.0" styleClass="closeButton" text="X">
          <font>
             <Font name="Eras Bold ITC" size="12.0" />
-         </font></Button>
+         </font>
+         <graphic>
+            <FontAwesomeIcon fill="#d21e1e" glyphName="CLOSE" />
+         </graphic>
+      </Button>
       <Button fx:id="addButton" layoutX="332.0" layoutY="562.0" mnemonicParsing="false" onAction="#buttonAction" prefHeight="30.0" prefWidth="148.0" styleClass="loginButton" text="Add">
          <font>
             <Font name="System Bold" size="12.0" />

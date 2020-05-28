@@ -7,14 +7,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-
-import java.io.*;
-import java.util.Scanner;
-
+import javafx.scene.layout.AnchorPane;
 import org.application.Controller;
 import org.application.LoginSystem;
-import org.data.DatabaseHandler;
+
+import java.io.IOException;
 
 
 /**
@@ -29,10 +26,11 @@ public class LoginScreen {
     public Button closeButton, loginButton;
     @FXML
     public RadioButton rememberMeButton;
+    public AnchorPane menuPane;
     @FXML
     private TextField usernameTextArea, passwordTextArea;
 
-    private Controller controller = Controller.getInstance();
+    private final Controller controller = Controller.getInstance();
 
     public void initialize() {
         controller.autoFillLogin(usernameTextArea, passwordTextArea, rememberMeButton);
@@ -59,12 +57,12 @@ public class LoginScreen {
         App.setRoot("user_mainMenu");
     }
 
-    public void closeButtonAction(ActionEvent actionEvent){
+    public void closeButtonAction(ActionEvent actionEvent) {
         controller.closeButtonAction(closeButton);
     }
 
     public void switchToHelpPopup(MouseEvent actionEvent) {
-        App.HelpPopUp.display();
+        App.helpPopUp.display();
     }
 
     public void rememberLogin(ActionEvent event) {

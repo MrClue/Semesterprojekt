@@ -10,11 +10,10 @@ import javafx.stage.Stage;
 public class HelpPopUp {
 
     public void display() {
-        Stage popupwindow = new Stage();
+        Stage popUpWindow = new Stage();
 
-        popupwindow.initModality(Modality.APPLICATION_MODAL);
-        popupwindow.setTitle("ECMS - Help");
-
+        popUpWindow.initModality(Modality.APPLICATION_MODAL);
+        popUpWindow.setTitle("ECMS - Help");
 
         Label label1 = new Label(
                 "ECMS is a tool to help you find credits for TV2 productions.\n"
@@ -32,7 +31,7 @@ public class HelpPopUp {
 
         Scene scene1 = new Scene(layout, 400, 200);
 
-        popupwindow.setScene(scene1);
-        popupwindow.showAndWait();
+        popUpWindow.setScene(scene1);
+        popUpWindow.showAndWait();
     }
 }

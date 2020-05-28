@@ -21,7 +21,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
-    public static org.application.HelpPopUp HelpPopUp;
+    public static HelpPopUp helpPopUp;
 
     private double xOffset = 0;
     private double yOffset = 0;
@@ -30,10 +30,9 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("loginScreen"));
         System.out.println(DatabaseHandler.getInstance().getRole("John"));
-        //scene.getStylesheets().add("ECMS.css");
         stage.initStyle(StageStyle.UNDECORATED); //removes default top panel of application
 
-        HelpPopUp = new HelpPopUp();
+        helpPopUp = new HelpPopUp();
         /**
          * Making the scene drag-able:
          * #1 We must calculate the mouse pressed location.
@@ -76,7 +75,7 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    public static void launcher(String[] args) {
+    public static void launcher() {
         launch();
     }
 

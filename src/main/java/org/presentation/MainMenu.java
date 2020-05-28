@@ -1,8 +1,5 @@
 package org.presentation;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -11,16 +8,8 @@ import javafx.scene.input.MouseEvent;
 import org.application.Controller;
 import org.application.Credits;
 import org.application.Program;
-import org.data.DatabaseHandler;
 
 import java.io.Serializable;
-
-/**
- * ToDO List:
- * Make it possible to type Production title and Credit information at the same time.
- * Make a search bar for the Credit table.
- * Fix errors and optimize logic.
- */
 
 public class MainMenu implements Serializable {
     public Button signOut, closeButton, helpButton, addButton, deleteButton, updateButton;
@@ -67,7 +56,7 @@ public class MainMenu implements Serializable {
          *  Button "ADD"
          */
         if (event.getSource() == addButton) {
-            /** Lets check if something is actually written inside the "production title" textfield... */
+            // lets check if something is actually written inside the "production title" textfield...
             if (titleDefined && !occupationDefined || titleDefined && !personDefined) {
                 controller.addProgram(title, programTable);
                 controller.clearText(titleField, occupationField, personField);
@@ -98,7 +87,6 @@ public class MainMenu implements Serializable {
             } catch (Exception e) {
                 System.out.println("IndexOutOfBoundsException");
                 System.out.println("(!) Always delete the associated credits first!");
-                //e.printStackTrace();
             }
         }
         /**
@@ -111,7 +99,6 @@ public class MainMenu implements Serializable {
                 controller.clearText(titleField, occupationField, personField);
             } else if (titleDefined && occupationDefined && personDefined){
                 // updating selected credit
-                // todo: update selected credit
                 controller.updateSelectedCredit(programTable, creditTable, title, occupation, person);
                 controller.clearText(titleField, occupationField, personField);
             }
@@ -152,6 +139,6 @@ public class MainMenu implements Serializable {
     }
 
     public void switchToHelpPopup(ActionEvent actionEvent) {
-        App.HelpPopUp.display();
+        App.helpPopUp.display();
     }
 }

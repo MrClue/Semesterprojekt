@@ -5,18 +5,11 @@ import javafx.beans.property.SimpleStringProperty;
 import java.io.Serializable;
 
 public class Program implements Serializable {
-    private SimpleStringProperty title;
-    private String description;
+    private final SimpleStringProperty title;
     private int ID;
 
     public int getID() {
         return ID;
-    }
-
-    public Program(int ID, String title, String description) {
-        this.ID = ID;
-        this.title = new SimpleStringProperty(title);
-        this.description = description;
     }
 
     public Program(int ID, String title) {
@@ -26,10 +19,6 @@ public class Program implements Serializable {
 
     public Program(String title) {
         this.title = new SimpleStringProperty(title);
-    }
-
-    public void setTitle(String title) {
-        this.title.set(title);
     }
 
     public String getTitle() {
