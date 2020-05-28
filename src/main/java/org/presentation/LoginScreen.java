@@ -13,12 +13,6 @@ import org.application.LoginSystem;
 
 import java.io.IOException;
 
-
-/**
- * Video brugt til FXML inspiration:
- * https://www.youtube.com/watch?v=wIuqKYhGaa8
- */
-
 public class LoginScreen {
     @FXML
     public Label helpButton, noLoginButton;
